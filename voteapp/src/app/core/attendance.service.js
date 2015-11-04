@@ -11,7 +11,7 @@
 
         var service = {
 
-            response: response
+            response: Response
         };
 
         return service;
@@ -20,7 +20,7 @@
 
        
 
-        function response() {
+        function Response() {
             this.yes = '';
             this.no ='';
             
