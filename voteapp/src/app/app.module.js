@@ -1,40 +1,42 @@
-(function() {
-  'use strict';
+(function () {
+    'use strict';
 
-  angular
-    .module('app', [
-      // Angular modules.
-      'ngRoute',
+    angular
+        .module('app', [
+            // Angular modules.
+            'ngRoute',
 
-      // Third party modules.
-      'firebase',
+            // Third party modules.
+            'firebase',
 
-      // Custom modules.
-      'app.auth',
-      'app.core',
-      'app.landing',
-      'app.layout',
-      'app.waitList'
-    ])
-    .config(configFunction)
-    .run(runFunction);
+            // Custom modules.
+            'app.auth',
+            'app.core',
+            'app.landing',
+            'app.layout',
+            'app.waitList',
+            'app.attendance',
 
-  configFunction.$inject = ['$routeProvider'];
+        ])
+        .config(configFunction)
+        .run(runFunction);
 
-  function configFunction($routeProvider) {
-    $routeProvider.otherwise({
-      redirectTo: '/'
-    });
-  }
+    configFunction.$inject = ['$routeProvider'];
 
-  runFunction.$inject = ['$rootScope', '$location'];
+    function configFunction($routeProvider) {
+        $routeProvider.otherwise({
+            redirectTo: '/'
+        });
+    }
 
-  function runFunction($rootScope, $location) {
-    $rootScope.$on('$routeChangeError', function(event, next, previous, error) {
-      if (error === "AUTH_REQUIRED") {
-        $location.path('/');
-      }
-    });
-  }
+    runFunction.$inject = ['$rootScope', '$location'];
+
+    function runFunction($rootScope, $location) {
+        $rootScope.$on('$routeChangeError', function (event, next, previous, error) {
+            if (error === "AUTH_REQUIRED") {
+                $location.path('/');
+            }
+        });
+    }
 
 })();

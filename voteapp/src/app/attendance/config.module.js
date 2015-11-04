@@ -1,3 +1,5 @@
-/**
- * Created by ashir on 11/4/15.
- */
+(function() {
+    'use strict';
+
+    angular.module('app.attendance', []);
+})();
