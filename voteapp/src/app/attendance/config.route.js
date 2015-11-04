@@ -10,9 +10,9 @@
     function configFunction($routeProvider) {
         $routeProvider.when('/abc', {
             templateUrl: 'app/attendance/attendance.html',
-          //  controller: 'AttendanceController',
-           // controllerAs: 'vm'
-
+            controller: 'AttendanceController',
+            controllerAs: 'vm',
+            resolve: {user: resolveUser}
         });
     }
 
