@@ -34,7 +34,7 @@
         };
 
         $rootScope.$on('logout', function() {
-         //   vm.parties.$destroy();
+            //   vm.parties.$destroy();
         });
     }
 

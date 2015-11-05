@@ -11,9 +11,9 @@
 
         var service = {
 
-            getAttendanceByDay: GetAttendanceByDay(),
+            getAttendanceByDay: GetAttendanceByDay,
             response: Response,
-            getAttendanceCount: GetAttendanceCount()
+            getAttendanceCount: GetAttendanceCount
 
         };
 
@@ -21,12 +21,27 @@
 
         ////////////
 
-        function GetAttendanceByDay(){
-            return $firebaseArray(firebaseDataService.attendance.child("Monday"));
+        function getDate()
+        {
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth()+1; //January is 0!
+            var yyyy = today.getFullYear();
+            var datetoday = mm + "-" + dd + "-" + yyyy;
+            return datetoday;
+        }
+
+        function GetAttendanceByDay(uid){
+
+
+            var datetoday = getDate();
+
+            return $firebaseArray(firebaseDataService.attendance.child(datetoday).child(uid));
         }
 
         function GetAttendanceCount(){
-            return $firebaseArray(firebaseDataService.attendance.child("Monday"));
+            var datetoday = getDate();
+            return $firebaseArray(firebaseDataService.attendance.child(datetoday));
         }
 
         function Response() {
