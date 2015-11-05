@@ -10,28 +10,22 @@
     function AdminController($rootScope, adminService,user) {
         var vm = this;
 
-        vm.attendance = adminService.getAttendanceByDay(user.uid);
-        vm.totalcount = adminService.getAttendanceCount();
-        console.log(vm.attendance.length);
-        console.log(vm.totalcount.length);
+        vm.sessionId ="";
 
-        vm.newResponse = new adminService.response();
+        vm.createSession = adminService.Createsession(vm.sessionId);
 
-        vm.attendanceExists = function() {
+        console.log(vm.createSession);
 
-            if (!vm.attendance)
-            {
-                return false;
+        var obj = {};
+        obj = {
+            info: {
+                choices: ['A', 'B', 'C', 'D'],
+                timestamp: Firebase.ServerValue.TIMESTAMP
             }
-
-            return true;
         };
 
-        vm.addParty = function () {
-            vm.newResponse.present = true;
-            console.log(vm.newResponse);
-            vm.attendance.$add(vm.newResponse);
-        };
+      //  vm.createSession.$add(obj);
+
 
         $rootScope.$on('logout', function() {
             //   vm.parties.$destroy();

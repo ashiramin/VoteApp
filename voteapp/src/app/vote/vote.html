@@ -1,9 +1,5 @@
-<form ng-submit="vm.addParty()" class="form-inline party-form" role="form">
 
-    <button type="submit" ng-disabled=""  class="btn btn-primary">I'm Here</button>
-</form>
-
-
-<div>
-    {{vm.totalcount.length}}
+<div ng-repeat="n in vm.votes">
+    <input type="radio" name="pageSet" ng-click="vm.addvote(n)" ng-value="n" />  {{n}} <br/>
 </div>
+

@@ -10,27 +10,19 @@
     function VoteController($rootScope, voteService,user) {
         var vm = this;
 
-        vm.attendance = voteService.getAttendanceByDay(user.uid);
-        vm.totalcount = voteService.getAttendanceCount();
-        console.log(vm.attendance.length);
-        console.log(vm.totalcount.length);
+        vm.votes = voteService.vote;
 
-        vm.newResponse = new voteService.response();
+        vm.getVotes = voteService.getVotes("sdsd");
 
-        vm.attendanceExists = function() {
+        var uids = user.uid;
 
-            if (!vm.attendance)
-            {
-                return false;
-            }
+        vm.addvote = function(n) {
+          console.log(n);
 
-            return true;
-        };
+            var obj = {};
+            obj[uids] = n;
 
-        vm.addParty = function () {
-            vm.newResponse.present = true;
-            console.log(vm.newResponse);
-            vm.attendance.$add(vm.newResponse);
+            vm.getVotes.update(obj);
         };
 
         $rootScope.$on('logout', function() {

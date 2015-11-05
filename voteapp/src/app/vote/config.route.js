@@ -8,7 +8,7 @@
     configFunction.$inject = ['$routeProvider'];
 
     function configFunction($routeProvider) {
-        $routeProvider.when('/vote', {
+        $routeProvider.when('/vote/:sessionId', {
             templateUrl: 'app/vote/vote.html',
             controller: 'VoteController',
             controllerAs: 'vm',

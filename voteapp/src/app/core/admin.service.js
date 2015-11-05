@@ -10,10 +10,8 @@
     function adminService($firebaseArray, firebaseDataService) {
 
         var service = {
-
-            getAttendanceByDay: GetAttendanceByDay,
-            response: Response,
-            getAttendanceCount: GetAttendanceCount
+            Createsession: CreateSession,
+            SessionExists: SessionExists
 
         };
 
@@ -21,33 +19,27 @@
 
         ////////////
 
-        function getDate()
-        {
-            var today = new Date();
-            var dd = today.getDate();
-            var mm = today.getMonth()+1; //January is 0!
-            var yyyy = today.getFullYear();
-            var datetoday = mm + "-" + dd + "-" + yyyy;
-            return datetoday;
-        }
-
-        function GetAttendanceByDay(uid){
+        function SessionExists(sessionId){
 
 
-            var datetoday = getDate();
+            return $firebaseArray(firebaseDataService.voteSessions.child(sessionId));
 
-            return $firebaseArray(firebaseDataService.attendance.child(datetoday).child(uid));
-        }
 
-        function GetAttendanceCount(){
-            var datetoday = getDate();
-            return $firebaseArray(firebaseDataService.attendance.child(datetoday));
-        }
+        };
 
-        function Response() {
-            this.present = false;
+       function CreateSession(sessionId) {
+           var obj = {};
+           obj["sdsd"] = {
+               info: {
+                   choices: ['A', 'B', 'C', 'D'],
+                   timestamp: Firebase.ServerValue.TIMESTAMP
+               }
+           };
 
-        }
+            firebaseDataService.voteSessions.update(obj);
+
+
+       }
     }
 
 })();
