@@ -2,15 +2,15 @@
     'use strict';
 
     angular
-        .module('app.vote')
+        .module('app.admin')
         .config(configFunction);
 
     configFunction.$inject = ['$routeProvider'];
 
     function configFunction($routeProvider) {
-        $routeProvider.when('/vote', {
-            templateUrl: 'app/vote/vote.html',
-            controller: 'VoteController',
+        $routeProvider.when('/admin', {
+            templateUrl: 'app/admin/admin.html',
+            controller: 'AdminController',
             controllerAs: 'vm',
             resolve: {user: resolveUser}
         });

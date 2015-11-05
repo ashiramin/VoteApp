@@ -1,9 +1,15 @@
 <form ng-submit="vm.addParty()" class="form-inline party-form" role="form">
 
-    <button type="submit" ng-disabled=""  class="btn btn-primary">I'm Here</button>
+    <button type="submit" ng-disabled="vm.attendanceExists()"  class="btn btn-primary">I'm Here</button>
 </form>
 
 
 <div>
-{{vm.totalcount.length}}
+    {{vm.totalcount.length}}
+
+    <form ng-submit="vm.addParty()" class="form-inline party-form" role="form">
+        <input type="text" placeholder="Enter VoteId">
+        <button type="submit"  class="btn btn-primary">Enter</button>
+    </form>
+
 </div>

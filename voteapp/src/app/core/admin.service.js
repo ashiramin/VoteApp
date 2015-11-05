@@ -3,20 +3,17 @@
 
     angular
         .module('app.core')
-        .factory('attendanceService', attendanceService);
+        .factory('adminService', adminService);
 
-    attendanceService.$inject = ['$firebaseArray', 'firebaseDataService','$firebaseObject'];
+    adminService.$inject = ['$firebaseArray', 'firebaseDataService'];
 
-    function attendanceService($firebaseArray, firebaseDataService,$firebaseObject) {
+    function adminService($firebaseArray, firebaseDataService) {
 
         var service = {
 
             getAttendanceByDay: GetAttendanceByDay,
             response: Response,
-            getAttendanceCount: GetAttendanceCount,
-            get: function() {
-                return $firebaseObject(firebaseDataService.attendance.child("11-5-2015").child("b9e4d1e1-aaf9-46a5-bf87-7c482daa1109"))
-            }
+            getAttendanceCount: GetAttendanceCount
 
         };
 
@@ -49,7 +46,7 @@
 
         function Response() {
             this.present = false;
-            
+
         }
     }
 

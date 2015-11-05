@@ -2,20 +2,20 @@
     'use strict';
 
     angular
-        .module('app.vote')
-        .controller('VoteController', VoteController);
+        .module('app.admin')
+        .controller('AdminController', AdminController);
 
-    VoteController.$inject = ['$rootScope', 'voteService' , 'user'];
+    AdminController.$inject = ['$rootScope', 'adminService' , 'user'];
 
-    function VoteController($rootScope, voteService,user) {
+    function AdminController($rootScope, adminService,user) {
         var vm = this;
 
-        vm.attendance = voteService.getAttendanceByDay(user.uid);
-        vm.totalcount = voteService.getAttendanceCount();
+        vm.attendance = adminService.getAttendanceByDay(user.uid);
+        vm.totalcount = adminService.getAttendanceCount();
         console.log(vm.attendance.length);
         console.log(vm.totalcount.length);
 
-        vm.newResponse = new voteService.response();
+        vm.newResponse = new adminService.response();
 
         vm.attendanceExists = function() {
 

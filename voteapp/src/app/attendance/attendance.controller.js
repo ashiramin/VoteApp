@@ -12,24 +12,24 @@
 
         vm.attendance = attendanceService.getAttendanceByDay(user.uid);
         vm.totalcount = attendanceService.getAttendanceCount();
-        console.log(vm.attendance.length);
-        console.log(vm.totalcount.length);
+
 
         vm.newResponse = new attendanceService.response();
 
         vm.attendanceExists = function() {
 
-            if (!vm.attendance)
+            if (vm.attendance.length > 0 )
             {
-                return false;
+                return 1;
             }
 
-            return true;
+            return 0;
         };
 
         vm.addParty = function () {
+
             vm.newResponse.present = true;
-            console.log(vm.newResponse);
+
             vm.attendance.$add(vm.newResponse);
         };
 

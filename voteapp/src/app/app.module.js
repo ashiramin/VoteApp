@@ -17,6 +17,9 @@
             'app.layout',
             'app.waitList',
             'app.attendance',
+            'app.vote',
+            'app.admin'
+
 
 
         ])
