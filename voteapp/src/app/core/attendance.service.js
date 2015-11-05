@@ -11,18 +11,26 @@
 
         var service = {
 
-            response: Response
+            getAttendanceByDay: GetAttendanceByDay(),
+            response: Response,
+            getAttendanceCount: GetAttendanceCount()
+
         };
 
         return service;
 
         ////////////
 
-       
+        function GetAttendanceByDay(){
+            return $firebaseArray(firebaseDataService.attendance.child("Monday"));
+        }
+
+        function GetAttendanceCount(){
+            return $firebaseArray(firebaseDataService.attendance.child("Monday"));
+        }
 
         function Response() {
-            this.yes = '';
-            this.no ='';
+            this.present = false;
             
         }
     }
