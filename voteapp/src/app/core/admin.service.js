@@ -5,13 +5,14 @@
         .module('app.core')
         .factory('adminService', adminService);
 
-    adminService.$inject = ['$firebaseArray', 'firebaseDataService'];
+    adminService.$inject = ['$firebaseArray', 'firebaseDataService' , 'voteService'];
 
-    function adminService($firebaseArray, firebaseDataService) {
+    function adminService($firebaseArray, firebaseDataService , voteService) {
 
         var service = {
             Createsession: CreateSession,
-            SessionExists: SessionExists
+            SessionExists: SessionExists,
+            getTotalCount: voteService.getVotes("sdsd").length
 
         };
 
