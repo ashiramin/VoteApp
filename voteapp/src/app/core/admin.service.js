@@ -12,7 +12,7 @@
         var service = {
             Createsession: CreateSession,
             SessionExists: SessionExists,
-            getTotalCount: voteService.getVotes("sdsd").length
+            getTotalCount: $firebaseArray(voteService.getVotes("sdsd"))
 
         };
 

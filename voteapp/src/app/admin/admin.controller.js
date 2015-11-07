@@ -12,9 +12,41 @@
 
         vm.sessionId ="";
 
-        vm.createSession = adminService.Createsession(vm.sessionId);
+        vm.createSession = function() {
+            adminService.Createsession(vm.sessionId);
+        };
 
-        console.log(vm.createSession);
+        vm.votes =  adminService.getTotalCount;
+
+        vm.A = 0;
+        vm.B = 0;
+        vm.C = 0;
+        vm.D = 0;
+        vm.votes.$loaded()
+            .then(function(){
+
+                angular.forEach(vm.votes, function(vote) {
+                    console.log(vote);
+                    if (vote.$value == "A")
+                    {
+                        vm.A++
+                    }
+                    else if (vote.$value == "B")
+                    {
+                        vm.B++
+                    }
+                    else if (vote.$value == "C")
+                    {
+                        vm.C++
+                    }
+                    else
+                    {
+                        vm.D++
+                    }
+                })
+            });
+
+
 
         var obj = {};
         obj = {
