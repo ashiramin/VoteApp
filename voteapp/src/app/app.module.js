@@ -43,6 +43,8 @@
             if (error === "AUTH_REQUIRED") {
                 $location.path('/');
             }
+
+
         });
     }
 

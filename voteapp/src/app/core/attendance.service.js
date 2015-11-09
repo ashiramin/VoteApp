@@ -5,7 +5,7 @@
         .module('app.core')
         .factory('attendanceService', attendanceService);
 
-    attendanceService.$inject = ['$firebaseArray', 'firebaseDataService','$firebaseObject'];
+    attendanceService.$inject = ['$firebaseArray', 'firebaseDataService','$firebaseObject',];
 
     function attendanceService($firebaseArray, firebaseDataService,$firebaseObject) {
 
