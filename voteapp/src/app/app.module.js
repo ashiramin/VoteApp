@@ -15,10 +15,11 @@
             'app.core',
             'app.landing',
             'app.layout',
-            'app.waitList',
+         //   'app.waitList',
             'app.attendance',
             'app.vote',
-            'app.admin'
+            'app.admin',
+            'app.results'
 
 
 

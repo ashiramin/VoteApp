@@ -22,29 +22,35 @@
         vm.B = 0;
         vm.C = 0;
         vm.D = 0;
-        vm.votes.$loaded()
-            .then(function(){
 
-                angular.forEach(vm.votes, function(vote) {
-                    console.log(vote);
-                    if (vote.$value == "A")
-                    {
-                        vm.A++
-                    }
-                    else if (vote.$value == "B")
-                    {
-                        vm.B++
-                    }
-                    else if (vote.$value == "C")
-                    {
-                        vm.C++
-                    }
-                    else
-                    {
-                        vm.D++
-                    }
-                })
-            });
+        vm.votes.$watch(function (event) {
+            console.log(event);
+
+            vm.A = 0;
+            vm.B = 0;
+            vm.C = 0;
+            vm.D = 0;
+
+            angular.forEach(vm.votes, function(vote) {
+                console.log(vote);
+                if (vote.$value == "A")
+                {
+                    vm.A++
+                }
+                else if (vote.$value == "B")
+                {
+                    vm.B++
+                }
+                else if (vote.$value == "C")
+                {
+                    vm.C++
+                }
+                else
+                {
+                    vm.D++
+                }
+            })
+        });
 
 
 

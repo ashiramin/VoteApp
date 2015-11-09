@@ -2,8 +2,8 @@
   'use strict';
 
   angular
-    .module('app.waitList')
-    .config(configFunction);
+      .module('app.waitList')
+      .config(configFunction);
 
   configFunction.$inject = ['$routeProvider'];
 
