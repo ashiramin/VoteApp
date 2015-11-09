@@ -5,35 +5,55 @@
         .module('app.results')
         .controller('ResultsController', ResultsController);
 
-    ResultsController.$inject = ['$rootScope', 'voteService' , 'user'];
+    ResultsController.$inject = ['$rootScope', 'adminService' , 'user'];
 
-    function ResultsController($rootScope, voteService,user) {
+    function ResultsController($rootScope, adminService,user) {
         var vm = this;
 
-        vm.votes = voteService.vote;
+        vm.votes =  adminService.getTotalCount;
 
-        vm.getVotes = voteService.getVotes("sdsd");
+        vm.labels = ['A', 'B', 'C', 'D'];
+       // vm.series = ['Series A', 'Series B'];
 
-        var uids = user.uid;
 
-        vm.buttonClass = "btn-default";
+        vm.A = 0;
+        vm.B = 0;
+        vm.C = 0;
+        vm.D = 0;
 
-        vm.userVote = "";
-        //vm.selectedCombination = "A";
+        vm.votes.$watch(function (event) {
+            console.log(event);
 
-        vm.addvote = function(n) {
-            console.log(n);
-            vm.selectedCombination =n;
+            vm.A = 0;
+            vm.B = 0;
+            vm.C = 0;
+            vm.D = 0;
 
-            var obj = {};
-            obj[uids] = n;
+            angular.forEach(vm.votes, function(vote) {
+                console.log(vote);
+                if (vote.$value == "A")
+                {
+                    vm.A++
+                }
+                else if (vote.$value == "B")
+                {
+                    vm.B++
+                }
+                else if (vote.$value == "C")
+                {
+                    vm.C++
+                }
+                else
+                {
+                    vm.D++
+                }
+            });
 
-            vm.getVotes.update(obj);
+            vm.data = [
+                [vm.A, vm.B, vm.C, vm.D]
 
-            //vm.buttonClass = "btn-success";
-
-            vm.userVote = "You voted for " + n;
-        };
+            ];
+        });
 
         $rootScope.$on('logout', function() {
             //   vm.parties.$destroy();
