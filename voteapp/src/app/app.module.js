@@ -8,6 +8,7 @@
 
             // Third party modules.
             'firebase',
+            'chart.js',
 
             // Custom modules.
 
