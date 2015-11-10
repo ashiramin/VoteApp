@@ -13,7 +13,8 @@
             controller: 'VoteController',
             controllerAs: 'vm',
             resolve:
-            {user: resolveUser,
+            {
+                user: resolveUser,
                attendance: hasAttendance
 
             }
@@ -36,17 +37,17 @@
                 {
                     console.log(attend);
 
-                    deferred.reject("asdsad");
+                    deferred.reject("ATTENDANCE_REQ");
                     //console.log(defer);
 
                 }
 
                 else
                 {
-                    deferred.resolve("asda");
+                    deferred.resolve();
                 }
             });
-        }, 1);
+        }, 0);
 
 
 

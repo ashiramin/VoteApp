@@ -44,6 +44,10 @@
                 $location.path('/');
             }
 
+            if (error === "ATTENDANCE_REQ") {
+                $location.path('/attendance');
+            }
+
 
         });
     }

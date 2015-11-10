@@ -11,9 +11,9 @@
         var vm = this;
 
         vm.votes = voteService.vote;
-
+        console.log(user);
         vm.getVotes = voteService.getVotes("sdsd");
-
+        //console.log(user);
         var uids = user.uid;
 
         vm.buttonClass = "btn-default";
