@@ -5,24 +5,57 @@
         .module('app.core')
         .factory('attendanceService', attendanceService);
 
-    attendanceService.$inject = ['$firebaseArray', 'firebaseDataService','$firebaseObject',];
+    attendanceService.$inject = ['$firebaseArray', 'firebaseDataService','$firebaseObject','$q'];
 
-    function attendanceService($firebaseArray, firebaseDataService,$firebaseObject) {
+    function attendanceService($firebaseArray, firebaseDataService,$firebaseObject,$q) {
 
         var service = {
 
             getAttendanceByDay: GetAttendanceByDay,
             response: Response,
             getAttendanceCount: GetAttendanceCount,
-            get: function() {
-                return $firebaseObject(firebaseDataService.attendance.child("11-5-2015").child("b9e4d1e1-aaf9-46a5-bf87-7c482daa1109"))
-            }
+            getAttendanceForUser: GetAttendanceForUser
 
         };
 
-        return service;
 
+        return service;
         ////////////
+
+        function GetAttendanceForUser(uid)
+        {
+            var datetoday = getDate();
+
+            var attendanceRecord = firebaseDataService.attendance.child(datetoday).child(uid);
+            var defered = $q.defer();
+
+
+                attendanceRecord.once("value", function (snapshot) {
+
+                    //
+                    if (snapshot.exists())
+                    {
+                        console.log(snapshot.val());
+                        defered.resolve("asdsa");
+                    }
+                    else
+                    {
+                        defered.reject("asssssdsa");
+                    }
+                    //
+                    //return 1;
+
+                });
+
+
+           // return 1;
+            return defered.promise;
+
+
+
+
+        }
+
 
         function getDate()
         {
@@ -51,6 +84,9 @@
             this.present = false;
             
         }
+
+
+
     }
 
 })();

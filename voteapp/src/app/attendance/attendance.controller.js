@@ -14,8 +14,12 @@
         vm.totalcount = attendanceService.getAttendanceCount();
         vm.sessionId = "";
 
-        vm.newResponse = new attendanceService.response();
+        vm.test = function () {
+            console.log("asdsad");
+        };
 
+        vm.newResponse = new attendanceService.response();
+        vm.count = 0;
         vm.attendanceExists = function() {
 
             if (vm.attendance.length > 0 )
@@ -23,7 +27,17 @@
                 return 1;
             }
 
+
             return 0;
+
+
+            //console.log("Call");
+
+
+
+            //
+            // attendanceService.getAttendanceForUser(user.uid);
+
         };
 
         vm.checkSessionId = function(sessionId) {

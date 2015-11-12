@@ -44,7 +44,7 @@
                 $location.path('/');
             }
 
-            if (error === "ATTENDANCE_REQ") {
+            if (error === "ATTENDANCE_REQUIRED") {
                 $location.path('/attendance');
             }
 

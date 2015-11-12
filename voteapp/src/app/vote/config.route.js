@@ -26,9 +26,11 @@
 
     function hasAttendance(authService,$q,attendanceService,$timeout)
     {
+
         var uid = authService.firebaseAuthObject.$getAuth().uid;
-        var attend = attendanceService.getAttendanceByDay(uid);
-        var deferred = $q.defer();
+      //  var attend = attendanceService.getAttendanceByDay(uid);
+        var atted = attendanceService.getAttendanceForUser(uid);
+       /* var deferred = $q.defer();
 
         setTimeout(function() {
             attend.$loaded().then(function ()
@@ -37,7 +39,7 @@
                 {
                     console.log(attend);
 
-                    deferred.reject("ATTENDANCE_REQ");
+                    deferred.reject("ATTENDANCE_REQUIRED");
                     //console.log(defer);
 
                 }
@@ -51,9 +53,10 @@
 
 
 
-        //console.log("asdas");
-        return deferred.promise;
 
+        //console.log("asdas");
+        return deferred.promise;*/
+        return atted;
 
 
     }
