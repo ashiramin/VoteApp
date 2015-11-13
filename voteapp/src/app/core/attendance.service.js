@@ -36,11 +36,11 @@
                     if (snapshot.exists())
                     {
                         console.log(snapshot.val());
-                        defered.resolve("asdsa");
+                        defered.resolve();
                     }
                     else
                     {
-                        defered.reject("asssssdsa");
+                        defered.reject("ATTENDANCE_REQUIRED");
                     }
                     //
                     //return 1;

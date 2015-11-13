@@ -30,32 +30,6 @@
         var uid = authService.firebaseAuthObject.$getAuth().uid;
       //  var attend = attendanceService.getAttendanceByDay(uid);
         var atted = attendanceService.getAttendanceForUser(uid);
-       /* var deferred = $q.defer();
-
-        setTimeout(function() {
-            attend.$loaded().then(function ()
-            {
-                if (attend.length < 1)
-                {
-                    console.log(attend);
-
-                    deferred.reject("ATTENDANCE_REQUIRED");
-                    //console.log(defer);
-
-                }
-
-                else
-                {
-                    deferred.resolve();
-                }
-            });
-        }, 0);
-
-
-
-
-        //console.log("asdas");
-        return deferred.promise;*/
         return atted;
 
 

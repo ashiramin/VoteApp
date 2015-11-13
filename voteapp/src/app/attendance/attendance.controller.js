@@ -48,6 +48,10 @@
                 if (vm.abc.length > 0)
                 {
                     vm.error = "";
+                    vm.newResponse.present = true;
+                    if (vm.attendanceExists() == 0) {
+                        vm.attendance.$add(vm.newResponse);
+                    }
                     $location.path('/vote/' + sessionId);
                 }
                 else
@@ -62,9 +66,7 @@
 
         vm.addParty = function () {
 
-            vm.newResponse.present = true;
 
-            vm.attendance.$add(vm.newResponse);
         };
 
         $rootScope.$on('logout', function() {

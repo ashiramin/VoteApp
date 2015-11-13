@@ -9,10 +9,17 @@
 
     {{vm.totalcount.length}}
 
-    <form ng-submit="vm.checkSessionId(vm.sessionId)" class="form-inline party-form" role="form">
-        <p ng-show="vm.error" class="text-danger" ng-bind="vm.error"></p>
-        <input type="text" ng-model="vm.sessionId" placeholder="Enter VoteId">
-        <button type="submit"  class="btn btn-primary">Enter</button>
+    <form ng-submit="vm.checkSessionId(vm.sessionId)"  class="form-signin" role="form">
+        <div ng-show="vm.error" ng-bind="vm.error" class="alert alert-danger" role="alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span  class="text-danger"  class="sr-only">Error:</span>
+
+        </div>
+        <p ></p>
+        <div>
+        <input type="text" ng-model="vm.sessionId" class="form-control" placeholder="Enter VoteId">
+        </div>
+        <input type="submit"   class="btn btn-lg btn-primary btn-block"/>
     </form>
 
 </div>
