@@ -14,7 +14,8 @@
             getAttendanceByDay: GetAttendanceByDay,
             response: Response,
             getAttendanceCount: GetAttendanceCount,
-            getAttendanceForUser: GetAttendanceForUser
+            getAttendanceForUser: GetAttendanceForUser,
+            takeUserAttendance: TakeUserAttendance
 
         };
 
@@ -22,11 +23,11 @@
         return service;
         ////////////
 
-        function GetAttendanceForUser(uid)
+        function GetAttendanceForUser(uid,sessionId)
         {
             var datetoday = getDate();
 
-            var attendanceRecord = firebaseDataService.attendance.child(datetoday).child(uid);
+            var attendanceRecord = firebaseDataService.attendance.child(sessionId).child(uid);
             var defered = $q.defer();
 
 
@@ -57,6 +58,20 @@
         }
 
 
+        function TakeUserAttendance(uid,sessionId)
+        {
+            var ref = firebaseDataService.attendance.child(sessionId);
+
+            var obj = {};
+
+            obj[uid] = {
+                present : true
+            };
+
+            ref.update(obj);
+        }
+
+
         function getDate()
         {
             var today = new Date();
@@ -67,17 +82,17 @@
             return datetoday;
         }
 
-        function GetAttendanceByDay(uid){
+        function GetAttendanceByDay(uid,sessionId){
 
 
             var datetoday = getDate();
 
-            return $firebaseArray(firebaseDataService.attendance.child(datetoday).child(uid));
+            return $firebaseArray(firebaseDataService.attendance.child(sessionId).child(uid));
         }
 
-        function GetAttendanceCount(){
+        function GetAttendanceCount(sessionId){
             var datetoday = getDate();
-            return $firebaseArray(firebaseDataService.attendance.child(datetoday));
+            return $firebaseArray(firebaseDataService.attendance.child(sessionId));
         }
 
         function Response() {

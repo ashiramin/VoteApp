@@ -10,8 +10,8 @@
     function AttendanceController($rootScope, attendanceService,user,adminService,$location) {
         var vm = this;
 
-        vm.attendance = attendanceService.getAttendanceByDay(user.uid);
-        vm.totalcount = attendanceService.getAttendanceCount();
+        vm.attendance = attendanceService.getAttendanceByDay(user.uid,"sdsd");
+        vm.totalcount = attendanceService.getAttendanceCount("sdsd");
         vm.sessionId = "";
 
         vm.test = function () {
@@ -50,7 +50,8 @@
                     vm.error = "";
                     vm.newResponse.present = true;
                     if (vm.attendanceExists() == 0) {
-                        vm.attendance.$add(vm.newResponse);
+                        //vm.attendance.$add(vm.newResponse);
+                        attendanceService.takeUserAttendance(user.uid,sessionId);
                     }
                     $location.path('/vote/' + sessionId);
                 }

@@ -22,14 +22,15 @@
     }
 
     resolveUser.$inject = ['authService'];
-    hasAttendance.$inject = ['authService','$q','attendanceService', '$timeout'];
+    hasAttendance.$inject = ['authService','$q','attendanceService', '$timeout','$route'];
 
-    function hasAttendance(authService,$q,attendanceService,$timeout)
+    function hasAttendance(authService,$q,attendanceService,$timeout,$route)
     {
 
         var uid = authService.firebaseAuthObject.$getAuth().uid;
       //  var attend = attendanceService.getAttendanceByDay(uid);
-        var atted = attendanceService.getAttendanceForUser(uid);
+        console.log();
+        var atted = attendanceService.getAttendanceForUser(uid,$route.current.params.sessionId);
         return atted;
 
 
