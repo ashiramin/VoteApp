@@ -1,6 +1,7 @@
 
-<div class="container" ng-repeat="n in vm.votes">
-    <button class="btn {{vm.buttonClass}}"  ng-class="{'btn-primary':vm.selectedCombination==n}" name="pageSet" ng-click="vm.addvote(n)"  >{{n}}</button>  <br/>
+<div class="text-center" ng-repeat="n in vm.votes">
+    <button class="btn btn-lg {{vm.buttonClass}}"  ng-class="{'btn-primary':vm.selectedCombination==n}" name="pageSet" ng-click="vm.addvote(n)"  >{{n}}</button>  <br/>
+    <br/>
 </div>
 
 

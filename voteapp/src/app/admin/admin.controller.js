@@ -13,6 +13,7 @@
         vm.sessionId ="";
 
         vm.createSession = function() {
+            console.log("sadasd");
             adminService.Createsession(vm.sessionId);
         };
 

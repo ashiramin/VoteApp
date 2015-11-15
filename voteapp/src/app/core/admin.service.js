@@ -30,9 +30,11 @@
 
        function CreateSession(sessionId) {
            var obj = {};
-           obj["sdsd"] = {
+
+           obj[sessionId] = {
                info: {
                    choices: ['A', 'B', 'C', 'D'],
+                   maxOptions : 2,
                    timestamp: Firebase.ServerValue.TIMESTAMP
                }
            };
@@ -41,6 +43,8 @@
 
 
        }
+
+
     }
 
 })();

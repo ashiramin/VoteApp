@@ -29,8 +29,9 @@
 
         var uid = authService.firebaseAuthObject.$getAuth().uid;
       //  var attend = attendanceService.getAttendanceByDay(uid);
-        console.log();
+        console.log($route.current.params.sessionId);
         var atted = attendanceService.getAttendanceForUser(uid,$route.current.params.sessionId);
+        console.log(atted);
         return atted;
 
 

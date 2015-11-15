@@ -9,10 +9,10 @@
 
     function AttendanceController($rootScope, attendanceService,user,adminService,$location) {
         var vm = this;
-
-        vm.attendance = attendanceService.getAttendanceByDay(user.uid,"sdsd");
-        vm.totalcount = attendanceService.getAttendanceCount("sdsd");
         vm.sessionId = "";
+
+        vm.totalcount = attendanceService.getAttendanceCount("sdsd");
+
 
         vm.test = function () {
             console.log("asdsad");
@@ -44,11 +44,13 @@
             vm.abc = adminService.SessionExists(sessionId);
             vm.abc.$loaded().then(function()
             {
+                vm.attendance = attendanceService.getAttendanceByDay(user.uid,vm.sessionId);
 
                 if (vm.abc.length > 0)
                 {
                     vm.error = "";
                     vm.newResponse.present = true;
+                    console.log(vm.attendanceExists());
                     if (vm.attendanceExists() == 0) {
                         //vm.attendance.$add(vm.newResponse);
                         attendanceService.takeUserAttendance(user.uid,sessionId);

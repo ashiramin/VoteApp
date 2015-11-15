@@ -1,8 +1,8 @@
-<form ng-submit="vm.createSession" class="form-inline party-form" role="form">
+<form ng-submit="vm.createSession(vm.sessionId)" class="form-inline party-form" role="form">
     <input type="text" ng-model="vm.sessionId" placeholder="Enter SessionId">
-    <button type="submit" ng-disabled=""  class="btn btn-primary">I'm Here</button>
+    <input type="submit" value="Enter" class="btn btn-primary"/>
 </form>
-
+{{vm.sessionId}}
 <table class="table ">
     <thead>
     <tr>
