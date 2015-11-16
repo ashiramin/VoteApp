@@ -5,15 +5,15 @@
         .module('app.vote')
         .controller('VoteController', VoteController);
 
-    VoteController.$inject = ['$rootScope', 'voteService' , 'user'];
+    VoteController.$inject = ['$rootScope', 'voteService' , 'user','$routeParams'];
 
-    function VoteController($rootScope, voteService,user) {
+    function VoteController($rootScope, voteService,user,$routeParams) {
         var vm = this;
 
         vm.votes = voteService.vote;
         console.log(user);
 
-        vm.getVotes = voteService.getVotes("sdsd");
+        vm.getVotes = voteService.getVotes($routeParams.sessionId);
         //console.log(user);
         var uids = user.uid;
 

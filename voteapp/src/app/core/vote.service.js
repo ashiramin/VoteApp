@@ -23,6 +23,7 @@
         ////////////
 
         function getVotes(sessionId) {
+            console.log(firebaseDataService.voteSessions.child(sessionId).child("votes"));
             return firebaseDataService.voteSessions.child(sessionId).child("votes");
         }
 

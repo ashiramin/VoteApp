@@ -12,13 +12,22 @@
         var service = {
             Createsession: CreateSession,
             SessionExists: SessionExists,
-            getTotalCount: $firebaseArray(voteService.getVotes("sdsd"))
+            GetTotalCount: GetTotalCounts,
+
 
         };
 
         return service;
 
         ////////////
+
+        function GetTotalCounts(sessionId)
+        {
+            //console.log('asdasd');
+            //console.log(sessionId);
+            return $firebaseArray(voteService.getVotes(sessionId));
+        };
+
 
         function SessionExists(sessionId){
 
