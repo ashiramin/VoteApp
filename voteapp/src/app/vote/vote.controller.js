@@ -9,7 +9,7 @@
 
     function VoteController($rootScope, voteService,user,$routeParams) {
         var vm = this;
-
+        vm.selectedCombination = [];
         vm.votes = voteService.vote;
         console.log(user);
 
@@ -24,12 +24,12 @@
 
         vm.addvote = function(n) {
           console.log(n);
-            vm.selectedCombination =n;
 
-            var obj = {};
-            obj[uids] = n;
 
-            vm.getVotes.update(obj);
+
+            vm.selectedCombination.push(n);
+
+
 
             //vm.buttonClass = "btn-success";
 
@@ -39,6 +39,17 @@
         $rootScope.$on('logout', function() {
             //   vm.parties.$destroy();
         });
+
+        vm.selectedValues = function (n) {
+            if (vm.selectedCombination.length > 2)
+            {
+                vm.selectedCombination.shift();
+            }
+            var obj = {};
+            obj[uids] = vm.selectedCombination;
+            vm.getVotes.update(obj);
+            return vm.selectedCombination.indexOf(n);
+        };
     }
 
 })();
