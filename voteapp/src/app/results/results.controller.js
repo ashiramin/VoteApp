@@ -30,22 +30,19 @@
             vm.D = 0;
 
             angular.forEach(vm.votes, function(vote) {
-                console.log(vote);
-                if (vote.$value == "A")
-                {
-                    vm.A++
-                }
-                else if (vote.$value == "B")
-                {
-                    vm.B++
-                }
-                else if (vote.$value == "C")
-                {
-                    vm.C++
-                }
-                else
-                {
-                    vm.D++
+                for (var i = 0; i < vote.length; i++) {
+                    if (vote[i] == "A") {
+                        vm.A++
+                    }
+                    else if (vote[i] == "B") {
+                        vm.B++
+                    }
+                    else if (vote[i] == "C") {
+                        vm.C++
+                    }
+                    else if (vote[i] == "D") {
+                        vm.D++
+                    }
                 }
             });
 

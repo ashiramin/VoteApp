@@ -46,6 +46,7 @@
                 vm.selectedCombination.shift();
             }
             var obj = {};
+
             obj[uids] = vm.selectedCombination;
             vm.getVotes.update(obj);
             return vm.selectedCombination.indexOf(n);
