@@ -9,12 +9,21 @@
 
     function configFunction($routeProvider) {
 
-        $routeProvider.when('/poll', {
+        $routeProvider
+            .when('/poll', {
             templateUrl: 'app/poll/poll.html',
             controller: 'PollController',
             controllerAs: 'vm',
             resolve: {user: resolveUser}
+        })
+        .when('/poll/:sessionId', {
+            templateUrl: 'app/poll/create-poll.html',
+            controller: 'PollController',
+            controllerAs: 'vm',
+            resolve: {user: resolveUser}
         });
+
+
     }
 
     resolveUser.$inject = ['authService'];

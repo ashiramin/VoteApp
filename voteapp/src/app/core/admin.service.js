@@ -13,6 +13,7 @@
             Createsession: CreateSession,
             SessionExists: SessionExists,
             GetTotalCount: GetTotalCounts,
+            CreatePoll: CreatePoll,
 
 
         };
@@ -52,6 +53,23 @@
 
 
        }
+
+        function CreatePoll(sessionId,choices,maxOptions)
+        {
+            var obj = {};
+            obj[sessionId] = {
+                info: {
+                    choices: choices,
+                    maxOptions : maxOptions,
+                    timestamp: Firebase.ServerValue.TIMESTAMP
+                }
+            };
+
+            console.log(obj);
+
+            firebaseDataService.voteSessions.update(obj);
+
+        }
 
 
     }
