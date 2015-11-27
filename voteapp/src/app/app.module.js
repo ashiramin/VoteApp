@@ -4,6 +4,9 @@
     angular
         .module('app', [
             // Angular modules.
+            'ngAnimate',
+
+            'ui.router',
             'ngRoute',
 
             // Third party modules.
@@ -20,7 +23,10 @@
             'app.attendance',
             'app.vote',
             'app.admin',
-            'app.results'
+            'app.results',
+            'app.poll'
+
+
 
 
 

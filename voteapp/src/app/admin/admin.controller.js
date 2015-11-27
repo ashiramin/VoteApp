@@ -7,7 +7,7 @@
 
     AdminController.$inject = ['$rootScope', 'adminService' , 'user'];
 
-    function AdminController($rootScope, adminService,user) {
+    function AdminController(adminService,user) {
         var vm = this;
 
         vm.sessionId ="";
@@ -24,7 +24,7 @@
         vm.C = 0;
         vm.D = 0;
 
-     
+
 
 
 
@@ -39,9 +39,9 @@
       //  vm.createSession.$add(obj);
 
 
-        $rootScope.$on('logout', function() {
+     /*   $rootScope.$on('logout', function() {
             //   vm.parties.$destroy();
-        });
+        });*/
     }
 
 })();
