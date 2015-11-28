@@ -14,7 +14,8 @@
         var service = {
 
             getVotes: getVotes,
-            vote: votes
+            vote: votes,
+            getPolls: getPolls
 
         };
 
@@ -24,7 +25,11 @@
 
         function getVotes(sessionId) {
             console.log(firebaseDataService.voteSessions.child(sessionId).child("votes"));
-            return firebaseDataService.voteSessions.child(sessionId).child("votes");
+            return firebaseDataService.voteSessions.child(sessionId);
+        }
+
+        function getPolls(sessionId) {
+            return $firebaseArray(firebaseDataService.voteSessions.child(sessionId));
         }
 
 

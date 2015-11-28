@@ -57,7 +57,7 @@
         function CreatePoll(sessionId,choices,maxOptions)
         {
             var obj = {};
-            obj[sessionId] = {
+            obj = {
                 info: {
                     choices: choices,
                     maxOptions : maxOptions,
@@ -67,7 +67,7 @@
 
             console.log(obj);
 
-            firebaseDataService.voteSessions.update(obj);
+            $firebaseArray(firebaseDataService.voteSessions.child(sessionId)).$add(obj);
 
         }
 
