@@ -3,14 +3,13 @@
 <br/>
 
 <div ng-repeat="poll in vm.polls">
+
     <hr>
 <div class="text-center" ng-repeat="n in poll.info.choices">
-    {{poll.$id}}
 
-    <button class="btn btn-lg {{vm.buttonClass}}"   name="pageSet" ng-click="vm.addvote(n,poll.$id,poll.info.maxOptions)"  >{{n}}</button>  <br/>
-    <!--   <button class="btn btn-lg {{vm.buttonClass}}"  ng-class="{'btn-primary':vm.selectedValues(n,poll.$id,poll.info.maxOptions) > -1}" name="pageSet" ng-click="vm.addvote(n)"  >{{n}}</button>  <br/>
-    -->
-    <br/>
+
+    <button class="btn btn-lg {{vm.buttonClass}}"   name="pageSet" ng-click="vm.addvote($parent.$index,n,poll.$id,poll.info.maxOptions)" ng-class="{'btn-primary':vm.buttonSelected(n,poll.$id) > -1}"  >{{n}}</button>  <br/>
+   <br/>
 </div>
 
 </div>

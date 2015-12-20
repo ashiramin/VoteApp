@@ -9,59 +9,57 @@
 
     function VoteController($rootScope, voteService,user,$routeParams) {
         var vm = this;
-        vm.selectedCombination = new Array();
-        console.log(vm.selectedCombination)
-        vm.votes = voteService.vote;
-        console.log(user);
+        vm.selectedCombination = [];
+       
 
         vm.getVotes = voteService.getVotes($routeParams.sessionId);
-        //console.log(user);
+
         var uids = user.uid;
 
         vm.polls = voteService.getPolls($routeParams.sessionId);
 
+
+        vm.polls.$loaded().then(function() {
+
+            for (var i = 0; i < vm.polls.length - 1;i++) {
+                vm.selectedCombination[vm.polls[i].$id] = [];
+            }
+        });
+
+
+
+
+
         vm.buttonClass = "btn-default";
 
         vm.userVote = "";
-        //vm.selectedCombination = "A";
 
-        vm.addvote = function(n,id,maxOptions) {
-          console.log(n);
-
-
+        vm.addvote = function(index,n,id,maxOptions) {
             var obj = {};
-            vm.selectedCombination[id] =n;
+            vm.selectedCombination[id].push(n);
             console.log(vm.selectedCombination);
             console.log(vm.polls.length);
             obj[uids] = vm.selectedCombination[id];
-            // vm.getVotes.child("hello").child(id).update(obj);
+
+            if (vm.selectedCombination[id].length > maxOptions) {
+                vm.selectedCombination[id].shift();
+            }
+
             if (id != undefined) {
                 vm.getVotes.child(id).child("votes").update(obj);
             }
-
-            //vm.buttonClass = "btn-success";
-
             vm.userVote = "You voted for " + n;
+        };
+
+
+        vm.buttonSelected = function(n,id) {
+              return vm.selectedCombination[id].indexOf(n);
+
         };
 
         $rootScope.$on('logout', function() {
             //   vm.parties.$destroy();
         });
-
-        vm.selectedValues = function (n,id,maxOptions) {
-            if (vm.selectedCombination.length > maxOptions)
-            {
-                vm.selectedCombination.shift();
-            }
-
-
-            obj[uids] = vm.selectedCombination;
-           // vm.getVotes.child("hello").child(id).update(obj);
-            if (id != undefined) {
-                vm.getVotes.child(id).child("votes").update(obj);
-            }
-            return vm.selectedCombination.indexOf(n);
-        };
     }
 
 })();
