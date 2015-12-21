@@ -11,7 +11,7 @@
 
         var vm = this;
 
-        vm.sessionId = "hello";
+        vm.sessionId = $routeParams.sessionId;
 
         vm.option = "";
 
@@ -19,13 +19,15 @@
 
         vm.choices = [];
 
+        vm.question = "";
+
         vm.addChoices = function (option) {
             vm.choices.push(option);
             vm.option = "";
         };
 
         vm.createPoll = function () {
-          adminService.CreatePoll(vm.sessionId,vm.choices,vm.maxOptions);
+          adminService.CreatePoll(vm.sessionId,vm.choices,vm.maxOptions,vm.question);
         };
 
         // TODO: Fix delete function

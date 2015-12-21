@@ -10,7 +10,7 @@
     function VoteController($rootScope, voteService,user,$routeParams) {
         var vm = this;
         vm.selectedCombination = [];
-       
+
 
         vm.getVotes = voteService.getVotes($routeParams.sessionId);
 
@@ -21,9 +21,11 @@
 
         vm.polls.$loaded().then(function() {
 
-            for (var i = 0; i < vm.polls.length - 1;i++) {
+            for (var i = 0; i < vm.polls.length;i++) {
                 vm.selectedCombination[vm.polls[i].$id] = [];
             }
+
+
         });
 
 

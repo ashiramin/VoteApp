@@ -54,11 +54,12 @@
 
        }
 
-        function CreatePoll(sessionId,choices,maxOptions)
+        function CreatePoll(sessionId,choices,maxOptions,question)
         {
             var obj = {};
             obj = {
                 info: {
+                    question: question,
                     choices: choices,
                     maxOptions : maxOptions,
                     timestamp: Firebase.ServerValue.TIMESTAMP
