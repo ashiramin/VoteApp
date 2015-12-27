@@ -1,11 +1,17 @@
 
-<div class="panel panel-default">
-    <div class="panel-heading">Total Votes {{vm.votes.length}}</div>
+<div class="panel panel-default" ng-repeat="poll in vm.chartStuff">
+    <div class="panel-heading">
+        <strong class="h3">{{poll.question}}</strong>
+        <br/>
+        <span class="text-uppercase">Total Votes {{vm.votes.length}}</span>
+    </div>
     <div class="panel-body">
         <div class="chart-container">
-            <canvas id="bar" class="chart chart-bar"
-                    chart-data="vm.data" chart-labels="vm.labels">
+            <canvas  class="chart chart-bar"
+                    chart-data="poll.chartData" chart-labels="poll.label">
             </canvas>
 
         </div>
+    </div>
 </div>
+
