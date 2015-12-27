@@ -38,7 +38,10 @@
 
         vm.addvote = function(index,n,id,maxOptions) {
             var obj = {};
-            vm.selectedCombination[id].push(n);
+            if (vm.selectedCombination[id].indexOf(n) < 0) {
+                vm.selectedCombination[id].push(n);
+            }
+
             console.log(vm.selectedCombination);
             console.log(vm.polls.length);
             obj[uids] = vm.selectedCombination[id];
