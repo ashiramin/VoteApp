@@ -17,14 +17,14 @@
         error: '=',
         formTitle: '@'
       },
-      transclude: true
+      transclude: true,
     }
   }
 
   function AuthFormController() {
     var vm = this;
-
     vm.user = {
+      name: '',
       email: '',
       password: ''
     };

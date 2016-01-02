@@ -12,15 +12,22 @@
 
     vm.register = register;
     vm.login = login;
+    vm.abc = "ssssssssss";
 
+    /*vm.user = {
+      name: 'aaa',
+      email: '',
+      password: 'sdsd'
+    };*/
 
     function register(user) {
+
       return authService.register(user)
         .then(function() {
           return vm.login(user);
         })
         .then(function() {
-          return authService.sendWelcomeEmail(user.email);
+            return authService.storeUserData(user);
         })
         .catch(function(error) {
 
@@ -29,6 +36,7 @@
     }
 
     function login(user) {
+
       return authService.login(user)
         .then(function(response) {
           $location.path('/attendance');

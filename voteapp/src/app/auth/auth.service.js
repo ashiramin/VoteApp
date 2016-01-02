@@ -22,7 +22,8 @@
       login: login,
       logout: logout,
       isLoggedIn: isLoggedIn,
-      sendWelcomeEmail: sendWelcomeEmail
+      sendWelcomeEmail: sendWelcomeEmail,
+      storeUserData: storeUserData
     };
 
     return service;
@@ -35,6 +36,13 @@
 
     function login(user) {
       return firebaseAuthObject.$authWithPassword(user);
+    }
+
+    function storeUserData(user) {
+      firebaseDataService.users.child(currentUser.uid).set({
+        email: user.email,
+        name: user.name
+      });
     }
 
     function logout() {
