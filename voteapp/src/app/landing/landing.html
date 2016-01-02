@@ -2,7 +2,8 @@
   <div class="starter-template">
    <!-- <h1>APO Voting Portal</h1>
     <p class="lead">No More Clickers!</p>-->
-    <a class="btn btn-lg btn-primary" href="#/register" role="button">Get started now!</a>
+    <a class="btn btn-lg btn-primary" href="#/login" role="button" ng-show="!vm.isLoggedIn()">Get started now!</a>
+    <a class="btn btn-lg btn-primary" href="#/attendance" role="button" ng-show="vm.isLoggedIn()">Get started now!</a>
 
   </div>
   <!--<div class="row">
