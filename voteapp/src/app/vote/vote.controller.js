@@ -5,9 +5,9 @@
         .module('app.vote')
         .controller('VoteController', VoteController);
 
-    VoteController.$inject = ['$rootScope', 'voteService' , 'user','$routeParams'];
+    VoteController.$inject = ['$rootScope', 'voteService' , 'user','$routeParams','attendanceService' ];
 
-    function VoteController($rootScope, voteService,user,$routeParams) {
+    function VoteController($rootScope, voteService,user,$routeParams,attendanceService) {
         var vm = this;
         vm.selectedCombination = [];
 
@@ -28,7 +28,10 @@
 
         });
 
-
+        vm.lockuser = function () {
+            console.log(attendanceService);
+            attendanceService.lockUser(uids,$routeParams.sessionId);
+        };
 
 
 

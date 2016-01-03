@@ -15,8 +15,8 @@
             response: Response,
             getAttendanceCount: GetAttendanceCount,
             getAttendanceForUser: GetAttendanceForUser,
-            takeUserAttendance: TakeUserAttendance
-
+            takeUserAttendance: TakeUserAttendance,
+            lockUser: lockUser
         };
 
 
@@ -55,6 +55,12 @@
 
 
 
+        }
+
+
+        function lockUser(uid,sessionId) {
+            var ref = firebaseDataService.attendance.child(sessionId).child(uid);
+            ref.update({ locked: true });
         }
 
 

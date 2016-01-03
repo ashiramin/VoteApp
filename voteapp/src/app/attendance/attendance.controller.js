@@ -35,16 +35,6 @@
 
             return defered.promise;
 
-
-
-
-            //console.log("Call");
-
-
-
-            //
-            // attendanceService.getAttendanceForUser(user.uid);
-
         };
 
         vm.checkSessionId = function(sessionId) {
@@ -59,13 +49,17 @@
                     vm.newResponse.present = true;
                     //console.log(vm.attendanceExists());
                     vm.attendanceExists().then(function () {
+                       // $location.path('/vote/' + sessionId);
+                        console.log("hello");
                         attendanceService.takeUserAttendance(user.uid,sessionId);
-                    });
-                    if (vm.attendanceExists() == 0) {
-                        //vm.attendance.$add(vm.newResponse);
+                        $location.path('/vote/' + sessionId);
+                    }, function (error) {
+                        $location.path('/vote/' + sessionId);
+                        console.log(error);
 
-                    }
-                    $location.path('/vote/' + sessionId);
+                    });
+
+
                 }
                 else
                 {
