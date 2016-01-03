@@ -5,9 +5,9 @@
         .module('app.attendance')
         .controller('AttendanceController', AttendanceController);
 
-    AttendanceController.$inject = ['$rootScope', 'attendanceService' , 'user' , 'adminService', '$location'];
+    AttendanceController.$inject = ['$rootScope', 'attendanceService' , 'user' , 'adminService', '$location' ,'$q'];
 
-    function AttendanceController($rootScope, attendanceService,user,adminService,$location) {
+    function AttendanceController($rootScope, attendanceService,user,adminService,$location,$q) {
         var vm = this;
         vm.sessionId = "";
 
@@ -21,14 +21,21 @@
         vm.newResponse = new attendanceService.response();
         vm.count = 0;
         vm.attendanceExists = function() {
+            var defered = $q.defer();
+            vm.attendance.$loaded().then(function () {
+                console.log(vm.attendance.length);
+                if (vm.attendance.length > 0 )
+                {
+                    defered.reject("ATTENDANCE_REQUIRED");
+                }
 
-            if (vm.attendance.length > 0 )
-            {
-                return 1;
-            }
+
+                defered.resolve();
+            });
+
+            return defered.promise;
 
 
-            return 0;
 
 
             //console.log("Call");
@@ -50,10 +57,13 @@
                 {
                     vm.error = "";
                     vm.newResponse.present = true;
-                    console.log(vm.attendanceExists());
+                    //console.log(vm.attendanceExists());
+                    vm.attendanceExists().then(function () {
+                        attendanceService.takeUserAttendance(user.uid,sessionId);
+                    });
                     if (vm.attendanceExists() == 0) {
                         //vm.attendance.$add(vm.newResponse);
-                        attendanceService.takeUserAttendance(user.uid,sessionId);
+
                     }
                     $location.path('/vote/' + sessionId);
                 }

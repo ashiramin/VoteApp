@@ -34,7 +34,7 @@
                 attendanceRecord.once("value", function (snapshot) {
 
                     //
-                    if (snapshot.exists())
+                    if (snapshot.exists() && !snapshot.val().locked)
                     {
                         console.log(snapshot.val());
                         defered.resolve();
@@ -66,6 +66,7 @@
 
             obj[uid] = {
                 present : true,
+                locked: false,
                 timestamp: Firebase.ServerValue.TIMESTAMP
 
             };

@@ -31,7 +31,7 @@
             vm.sessionUsers = adminService.getSessionUsers(vm.sessionId);
 
             vm.sessionUsers.$watch(function(event) {
-                
+
                 var user = vm.users.$getRecord(event.key);
                 var timestamp = vm.sessionUsers.$getRecord(event.key).timestamp;
                 var obj = {
