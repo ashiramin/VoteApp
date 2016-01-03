@@ -7,12 +7,12 @@
 
     PollController.$inject = ['$rootScope', 'adminService' , 'user' ,'$routeParams','$location'];
 
-    function PollController($rootScope, adminService,user, $routeParams,$location) {
+    function PollController(adminService,user, $routeParams,$location) {
 
         var vm = this;
 
         vm.sessionId = $routeParams.sessionId;
-
+       // console.log($routeParams);
         vm.option = "";
 
         vm.maxOptions = 1;
@@ -43,7 +43,6 @@
 
         vm.checkSessionId = function (sessionId) {
             var sessionExists =  adminService.SessionExists(sessionId);
-            console.log(sessionExists);
             sessionExists.$loaded().then(function() {
 
                 if (sessionExists.length > 0) {

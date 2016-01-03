@@ -14,13 +14,23 @@
             SessionExists: SessionExists,
             GetTotalCount: GetTotalCounts,
             CreatePoll: CreatePoll,
-
+            getAllUsers: getAllUsers,
+            getSessionUsers: getSessionUsers
 
         };
 
         return service;
 
         ////////////
+
+        function getSessionUsers(sessionId) {
+            return $firebaseArray(firebaseDataService.attendance.child(sessionId));
+        }
+
+        function getAllUsers() {
+            return $firebaseArray(firebaseDataService.users);
+        }
+
 
         function GetTotalCounts(sessionId)
         {

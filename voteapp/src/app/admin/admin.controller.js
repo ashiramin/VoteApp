@@ -5,38 +5,45 @@
         .module('app.admin')
         .controller('AdminController', AdminController);
 
-    AdminController.$inject = ['$rootScope', 'adminService' , 'user'];
+    AdminController.$inject = ['adminService' ,'$routeParams', '$location'];
 
-    function AdminController(adminService,user) {
+    function AdminController(adminService,$routeParams,$location) {
         var vm = this;
 
-        vm.sessionId ="";
+        vm.sessionId =$routeParams.sessionId !== undefined ? $routeParams.sessionId : "";
 
-        vm.createSession = function() {
-            console.log("sadasd");
-            adminService.Createsession(vm.sessionId);
+        vm.checkSessionId = function (sessionId) {
+            var sessionExists =  adminService.SessionExists(sessionId);
+            sessionExists.$loaded().then(function() {
+                if (sessionExists.length > 0) {
+                    $location.path('/admin/' + sessionId);
+                }
+
+            });
         };
 
-        vm.votes =  adminService.getTotalCount;
 
-        vm.A = 0;
-        vm.B = 0;
-        vm.C = 0;
-        vm.D = 0;
+        if (vm.sessionId != "") {
+            vm.users = adminService.getAllUsers();
 
+            vm.usernames = [];
 
+            vm.sessionUsers = adminService.getSessionUsers(vm.sessionId);
 
+            vm.sessionUsers.$watch(function(event) {
+                
+                var user = vm.users.$getRecord(event.key);
+                var timestamp = vm.sessionUsers.$getRecord(event.key).timestamp;
+                var obj = {
+                    name: user.name,
+                    timestamp: new Date(timestamp).toLocaleTimeString(),
+                    email: user.email
+                };
 
+                vm.usernames.push(obj);
 
-        var obj = {};
-        obj = {
-            info: {
-                choices: ['A', 'B', 'C', 'D'],
-                timestamp: Firebase.ServerValue.TIMESTAMP
-            }
-        };
-
-      //  vm.createSession.$add(obj);
+            });
+        }
 
 
      /*   $rootScope.$on('logout', function() {

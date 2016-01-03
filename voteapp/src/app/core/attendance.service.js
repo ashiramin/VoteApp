@@ -65,7 +65,9 @@
             var obj = {};
 
             obj[uid] = {
-                present : true
+                present : true,
+                timestamp: Firebase.ServerValue.TIMESTAMP
+
             };
 
             ref.update(obj);

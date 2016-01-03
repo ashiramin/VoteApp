@@ -8,12 +8,21 @@
     configFunction.$inject = ['$routeProvider'];
 
     function configFunction($routeProvider) {
-        $routeProvider.when('/admin', {
+        $routeProvider
+            .when('/admin', {
             templateUrl: 'app/admin/admin.html',
             controller: 'AdminController',
             controllerAs: 'vm',
             resolve: {user: resolveUser}
-        });
+        })
+            .when('/admin/:sessionId',{
+                templateUrl: 'app/admin/user-list.html',
+                controller: 'AdminController',
+                controllerAs: 'vm',
+                resolve: {user: resolveUser}
+            });
+
+
     }
 
     resolveUser.$inject = ['authService'];

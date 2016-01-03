@@ -1,48 +1,10 @@
-<form ng-submit="vm.createSession(vm.sessionId)" class="form-inline party-form" role="form">
-    <input type="text" ng-model="vm.sessionId" placeholder="Enter SessionId">
-    <input type="submit" value="Enter" class="btn btn-primary"/>
-</form>
-{{vm.sessionId}}
-<table class="table ">
-    <thead>
-    <tr>
-        <th>Options</th>
-        <th>Count</th>
-
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>A</td>
-        <td>{{vm.A}}</td>
-
-    </tr>
-    <tr>
-        <td>B</td>
-        <td>{{vm.B}}</td>
-
-    </tr>
-    <tr>
-        <td>C</td>
-        <td>{{vm.C}}</td>
-
-    </tr>
-    <tr>
-        <td>D</td>
-        <td>{{vm.D}}</td>
-
-    </tr>
-    <tr >
-        <td>Total Count</td>
-        <td>{{vm.votes.length}}</td>
-        <td></td>
-    </tr>
-    </tbody>
-</table>
-
-
-
 <div>
+    <h3 class="text-center">Enter an existing session id or create a new one</h3>
+    <form ng-submit="vm.checkSessionId(vm.sessionId)"  class="form-signin" role="form">
 
-
+        <div>
+            <input type="text" ng-model="vm.sessionId" class="form-control" />
+        </div>
+        <input type="submit"   class="btn btn-lg btn-primary btn-block"/>
+    </form>
 </div>
