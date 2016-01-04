@@ -16,7 +16,9 @@
             getAttendanceCount: GetAttendanceCount,
             getAttendanceForUser: GetAttendanceForUser,
             takeUserAttendance: TakeUserAttendance,
-            lockUser: lockUser
+            lockUser: lockUser,
+            getAttendanceInfoForUser: getAttendanceInfoForUser,
+            unlockUser: unlockUser
         };
 
 
@@ -55,6 +57,21 @@
 
 
 
+        }
+
+
+        function unlockUser(uid,sessionId) {
+            var ref = firebaseDataService.attendance.child(sessionId).child(uid);
+            ref.update({ locked: false});
+        }
+
+        function getAttendanceInfoForUser(uid,sessionId) {
+            var attendanceRecord = firebaseDataService.attendance.child(sessionId).child(uid);
+            var defered = $q.defer();
+            attendanceRecord.once("value", function (snapshot) {
+                defered.resolve(snapshot.val());
+            });
+            return defered.promise;
         }
 
 

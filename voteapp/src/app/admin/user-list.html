@@ -3,21 +3,22 @@
     <input type="text" class="search form-control" ng-model="search" placeholder="What you looking for?">
 </div>
 
-
 <table class="table table-hover">
     <thead>
     <th>No.</th>
     <th>Name</th>
     <th>Email</th>
     <th>Time Stamp</th>
+    <th>Locked</th>
     </thead>
 
     <tbody>
-    <tr ng-repeat="user in vm.usernames | filter:search">
+    <tr ng-repeat="user in vm.usernames | filter:search" ng-click="user.locked==true && vm.Modal(user)" ng-class="{'danger': user.locked==true}">
         <td>{{$index+1}}</td>
         <td>{{user.name}}</td>
         <td>{{user.email}}</td>
         <td>{{user.timestamp}}</td>
+        <td>{{user.locked}}</td>
     </tr>
     </tbody>
 
