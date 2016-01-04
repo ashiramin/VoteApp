@@ -5,9 +5,9 @@
         .module('app.poll')
         .controller('PollController', PollController);
 
-    PollController.$inject = ['$rootScope', 'adminService' , 'user' ,'$routeParams','$location'];
+    PollController.$inject = ['adminService' , 'user' , '$location', '$routeParams' ,'$uibModal'];
 
-    function PollController(adminService,user, $routeParams,$location) {
+    function PollController(adminService,user, $location, $routeParams,$uibModal) {
 
         var vm = this;
 
@@ -27,7 +27,26 @@
         };
 
         vm.createPoll = function () {
+            console.log($routeParams);
           adminService.CreatePoll(vm.sessionId,vm.choices,vm.maxOptions,vm.question);
+        };
+
+        vm.Modal = function () {
+
+            $uibModal.open({
+                animation: true,
+                templateUrl: 'app/poll/modal.html',
+                controller: 'PollModalInstanceCtrl',
+                controllerAs: "vm",
+                // size: size,
+                resolve: {
+                    sessionId: function () {
+                        return vm.sessionId;
+                    }
+                    //attendanceInfo: attendanceService.getAttendanceInfoForUser(user.uid,vm.sessionId)
+
+                }
+            });
         };
 
         // TODO: Fix delete function
@@ -43,18 +62,36 @@
 
         vm.checkSessionId = function (sessionId) {
             var sessionExists =  adminService.SessionExists(sessionId);
+
             sessionExists.$loaded().then(function() {
 
                 if (sessionExists.length > 0) {
-
+                    $location.path('/poll/' + sessionId);
                 }
                 else
                 {
-                    $location.path('/poll/' + sessionId);
+
+
                 }
+                vm.Modal();
+                //$location.path('/poll/' + sessionId);
 
             });
         };
     }
+
+    angular.module('app.poll').controller('PollModalInstanceCtrl', function ($uibModalInstance,$location,sessionId,adminService) {
+        var vm = this;
+        vm.dialogTitle = "Warning";
+        vm.ok = function () {
+            adminService.CreateSession(sessionId);
+            $location.path('/poll/' + sessionId);
+            $uibModalInstance.close();
+        };
+        vm.cancel = function () {
+
+            $uibModalInstance.dismiss('cancel');
+        };
+    });
 
 })();

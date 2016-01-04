@@ -62,16 +62,12 @@
 
         vm.polls = voteService.getPolls($routeParams.sessionId);
 
-
-        vm.polls.$loaded().then(function() {
-
-            for (var i = 0; i < vm.polls.length;i++) {
-                vm.selectedCombination[vm.polls[i].$id] = [];
+        vm.polls.$watch(function(event) {
+            if (event.event == "child_added") {
+            //    var pollId = vm.polls.$getRecord(event.key)
+                vm.selectedCombination[event.key] = [];
             }
-
-
         });
-
 
         vm.buttonClass = "btn-default";
 
@@ -99,7 +95,9 @@
 
 
         vm.buttonSelected = function(n,id) {
-              return vm.selectedCombination[id].indexOf(n);
+
+                return vm.selectedCombination[id].indexOf(n);
+
 
         };
 

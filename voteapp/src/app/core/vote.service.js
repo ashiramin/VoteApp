@@ -5,9 +5,9 @@
         .module('app.core')
         .factory('voteService', voteService);
 
-    voteService.$inject = ['$firebaseArray', 'firebaseDataService'];
+    voteService.$inject = ['$firebaseArray', 'firebaseDataService', '$firebaseObject'];
 
-    function voteService($firebaseArray, firebaseDataService) {
+    function voteService($firebaseArray, firebaseDataService, $firebaseObject) {
 
 
         var votes = ['A','B','C','D'];
@@ -24,11 +24,12 @@
         ////////////
 
         function getVotes(sessionId) {
-            console.log(firebaseDataService.voteSessions.child(sessionId).child("votes"));
+
             return firebaseDataService.voteSessions.child(sessionId);
         }
 
         function getPolls(sessionId) {
+
             return $firebaseArray(firebaseDataService.voteSessions.child(sessionId));
         }
 

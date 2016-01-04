@@ -10,7 +10,7 @@
     function adminService($firebaseArray, firebaseDataService , voteService) {
 
         var service = {
-            Createsession: CreateSession,
+            CreateSession: CreateSession,
             SessionExists: SessionExists,
             GetTotalCount: GetTotalCounts,
             CreatePoll: CreatePoll,
@@ -49,19 +49,7 @@
         };
 
        function CreateSession(sessionId) {
-           var obj = {};
-
-           obj[sessionId] = {
-               info: {
-                   choices: ['A', 'B', 'C', 'D'],
-                   maxOptions : 2,
-                   timestamp: Firebase.ServerValue.TIMESTAMP
-               }
-           };
-
-            firebaseDataService.voteSessions.update(obj);
-
-
+           firebaseDataService.voteSessions.child(sessionId).set({timestamp: Firebase.ServerValue.TIMESTAMP});
        }
 
         function CreatePoll(sessionId,choices,maxOptions,question)
