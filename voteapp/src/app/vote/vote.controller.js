@@ -5,16 +5,60 @@
         .module('app.vote')
         .controller('VoteController', VoteController);
 
-    VoteController.$inject = ['$rootScope', 'voteService' , 'user','$routeParams','attendanceService' ];
+    angular
+        .module('app.vote').directive('modalDialog' , function() {
+            return {
+                restrict: 'E',
+                replace: true,
+                transclude: true,
 
-    function VoteController($rootScope, voteService,user,$routeParams,attendanceService) {
+                link: function(scope) {
+                    scope.cancel = function() {
+                        scope.$dismiss('cancel');
+                    };
+                },
+                template:
+                "<div>" +
+                "<div class='modal-header'>" +
+                "<h3 class='modal-title' ng-bind='vm.dialogTitle'></h3>" +
+                "<div class='modal-body' ng-transclude></div>" +
+                "</div>" +
+                "<div class='modal-footer'>" +
+                "<button class='btn btn-primary' type='button' ng-click='vm.ok()'>OK</button>" +
+                "<button class='btn btn-warning' type='button' ng-click='vmcancel()'>Cancel</button>" +
+                "</div>"
+
+            };
+        });
+
+    VoteController.$inject = ['$rootScope', 'voteService' , 'user','$routeParams','$uibModal' ];
+
+    function VoteController($rootScope, voteService,user,$routeParams,$uibModal) {
+
         var vm = this;
+        //console.log(vm);
         vm.selectedCombination = [];
+        console.log($uibModal);
 
-
-        vm.getVotes = voteService.getVotes($routeParams.sessionId);
-
+        vm.items = ['item1', 'item2', 'item3'];
         var uids = user.uid;
+        vm.Modal = function (size) {
+            $uibModal.open({
+                animation: true,
+                templateUrl: 'app/vote/modal.html',
+                controller: 'ModalInstanceCtrl',
+                controllerAs: "vm",
+                size: size,
+                resolve: {
+                    user: user
+
+                }
+            });
+        };
+
+            vm.getVotes = voteService.getVotes($routeParams.sessionId);
+
+
 
         vm.polls = voteService.getPolls($routeParams.sessionId);
 
@@ -27,12 +71,6 @@
 
 
         });
-
-        vm.lockuser = function () {
-            console.log(attendanceService);
-            attendanceService.lockUser(uids,$routeParams.sessionId);
-        };
-
 
 
         vm.buttonClass = "btn-default";
@@ -68,6 +106,23 @@
         $rootScope.$on('logout', function() {
             //   vm.parties.$destroy();
         });
+
     }
+
+    angular.module('app.vote').controller('ModalInstanceCtrl', function ($rootScope,$uibModalInstance,attendanceService,user,$routeParams) {
+        var vm = this;
+
+        vm.dialogTitle = "Reason";
+        vm.ok = function () {
+            //$rootScope.$broadcast('lockuser');
+            attendanceService.lockUser(user.uid,$routeParams.sessionId, vm.message);
+            $uibModalInstance.close();
+        };
+        vm.cancel = function () {
+           // console.log(attendanceService);
+           // attendanceService.lockUser(uids,$routeParams.sessionId);
+            $uibModalInstance.dismiss('cancel');
+        };
+    });
 
 })();

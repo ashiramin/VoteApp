@@ -12,6 +12,7 @@
             // Third party modules.
             'firebase',
             'chart.js',
+            'ui.bootstrap',
 
             // Custom modules.
 
@@ -56,6 +57,12 @@
 
 
         });
+
+        $rootScope.$on('lockuser', function () {
+            $location.path('/attendance');
+
+        })
+
     }
 
 })();

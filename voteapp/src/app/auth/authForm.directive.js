@@ -23,6 +23,7 @@
 
   function AuthFormController() {
     var vm = this;
+
     vm.user = {
       name: '',
       email: '',

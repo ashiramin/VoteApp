@@ -5,9 +5,9 @@
         .module('app.core')
         .factory('attendanceService', attendanceService);
 
-    attendanceService.$inject = ['$firebaseArray', 'firebaseDataService','$firebaseObject','$q'];
+    attendanceService.$inject = ['$rootScope','$firebaseArray', 'firebaseDataService','$firebaseObject','$q'];
 
-    function attendanceService($firebaseArray, firebaseDataService,$firebaseObject,$q) {
+    function attendanceService($rootScope,$firebaseArray, firebaseDataService,$firebaseObject,$q) {
 
         var service = {
 
@@ -58,9 +58,10 @@
         }
 
 
-        function lockUser(uid,sessionId) {
+        function lockUser(uid,sessionId,message) {
             var ref = firebaseDataService.attendance.child(sessionId).child(uid);
-            ref.update({ locked: true });
+            ref.update({ locked: true, message: message });
+            $rootScope.$broadcast('lockuser');
         }
 
 
