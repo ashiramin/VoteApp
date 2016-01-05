@@ -24,40 +24,42 @@
 
             console.log(vm.polls);
             for (var i = 0; i < vm.polls.length;i++) {
-                vm.chartStuff[vm.polls[i].$id] = [];
-                vm.chartStuff[vm.polls[i].$id]["label"] = [];
-                vm.chartStuff[vm.polls[i].$id]["chartData"] = [];
-                vm.chartStuff[vm.polls[i].$id]["votes"] = [];
+                if (vm.polls[i].$id != "timestamp") {
+                    vm.chartStuff[vm.polls[i].$id] = [];
+                    vm.chartStuff[vm.polls[i].$id]["label"] = [];
+                    vm.chartStuff[vm.polls[i].$id]["chartData"] = [];
+                    vm.chartStuff[vm.polls[i].$id]["votes"] = [];
 
-                for (var iter = 0; iter< vm.polls[i].info.choices.length; iter++) {
-                    vm.chartStuff[vm.polls[i].$id]["votes"].push(0);
-                }
-
-                vm.chartStuff[vm.polls[i].$id]["question"] = vm.polls[i].info.question;
-                for (var j = 0; j < vm.polls[i].info.choices.length; j++) {
-                    vm.chartStuff[vm.polls[i].$id][vm.polls[i].info.choices[j]] = 0;
-                    vm.chartStuff[vm.polls[i].$id]["label"].push(vm.polls[i].info.choices[j]);
-
-                }
-                for (var key in vm.polls[i].votes) {
-                    if (vm.polls[i].votes.hasOwnProperty(key)) {
-
-                        for (j = 0; j < vm.polls[i].votes[key].length; j++) {
-
-                            if (vm.chartStuff[vm.polls[i].$id].hasOwnProperty(vm.polls[i].votes[key][j])) {
-
-                                var option =vm.polls[i].votes[key][j];
-                                vm.chartStuff[vm.polls[i].$id][option]++;
-                            }
-                            var index = vm.chartStuff[vm.polls[i].$id]["label"].indexOf(option);
-                            vm.chartStuff[vm.polls[i].$id]["votes"][index] = vm.chartStuff[vm.polls[i].$id][option]
-                        }
-                        vm.chartStuff[vm.polls[i].$id]["chartData"][0] = vm.chartStuff[vm.polls[i].$id]["votes"];
+                    for (var iter = 0; iter < vm.polls[i].info.choices.length; iter++) {
+                        vm.chartStuff[vm.polls[i].$id]["votes"].push(0);
                     }
 
+                    vm.chartStuff[vm.polls[i].$id]["question"] = vm.polls[i].info.question;
+                    for (var j = 0; j < vm.polls[i].info.choices.length; j++) {
+                        vm.chartStuff[vm.polls[i].$id][vm.polls[i].info.choices[j]] = 0;
+                        vm.chartStuff[vm.polls[i].$id]["label"].push(vm.polls[i].info.choices[j]);
+
+                    }
+                    for (var key in vm.polls[i].votes) {
+                        if (vm.polls[i].votes.hasOwnProperty(key)) {
+
+                            for (j = 0; j < vm.polls[i].votes[key].length; j++) {
+
+                                if (vm.chartStuff[vm.polls[i].$id].hasOwnProperty(vm.polls[i].votes[key][j])) {
+
+                                    var option = vm.polls[i].votes[key][j];
+                                    vm.chartStuff[vm.polls[i].$id][option]++;
+                                }
+                                var index = vm.chartStuff[vm.polls[i].$id]["label"].indexOf(option);
+                                vm.chartStuff[vm.polls[i].$id]["votes"][index] = vm.chartStuff[vm.polls[i].$id][option]
+                            }
+                            vm.chartStuff[vm.polls[i].$id]["chartData"][0] = vm.chartStuff[vm.polls[i].$id]["votes"];
+                        }
+
+                    }
                 }
             }
-
+            console.log(vm.chartStuff);
         });
 
         vm.polls.$watch(function (event) {

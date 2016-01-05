@@ -29,6 +29,9 @@
         vm.createPoll = function () {
             console.log($routeParams);
           adminService.CreatePoll(vm.sessionId,vm.choices,vm.maxOptions,vm.question);
+            vm.choices = [];
+            vm.maxOptions = 1;
+            vm.question = "";
         };
 
         vm.Modal = function () {
@@ -71,9 +74,9 @@
                 else
                 {
 
-
+                    vm.Modal();
                 }
-                vm.Modal();
+
                 //$location.path('/poll/' + sessionId);
 
             });

@@ -7,7 +7,7 @@
 
 <div ng-repeat="poll in vm.polls">
     <hr>
-    <h3 class="text-center">{{poll.info.question}}</h3>
+    <h3 class="text-center">{{$index+1}}. {{poll.info.question}}</h3>
 <div class="text-center" ng-repeat="n in poll.info.choices">
 
 
