@@ -18,6 +18,27 @@
         formTitle: '@'
       },
       transclude: true,
+      link: function(scope, elem, attr, ctrl, transclude) {
+        console.log(ctrl);
+        transclude(scope,function(clone, transScope) {
+
+          transScope.name = ctrl.user.name;
+
+          angular.forEach(clone, function(cloneEl) {
+            if (cloneEl.nodeType === 3)  {
+
+              return;
+            }
+            var destinationId = cloneEl.attributes["transclude-to"].value;
+            var destination = elem.find('[transclude-id="'+ destinationId +'"]');
+            if (destination.length) {
+              destination.append(cloneEl);
+            } else {
+              cloneEl.remove();
+            }
+          });
+        });
+      }
     }
   }
 

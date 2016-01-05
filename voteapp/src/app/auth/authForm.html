@@ -5,7 +5,9 @@
     <p ng-show="vm.error" class="text-danger" ng-bind="vm.error"></p>
 
     <!--Optional additional inputs-->
-    <ng-transclude></ng-transclude>
+
+        <div transclude-id="head" ></div>
+
 
 
     {{vm.user}}

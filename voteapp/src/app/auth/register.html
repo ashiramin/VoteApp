@@ -2,7 +2,9 @@
         form-title="Sign up"
         submit-action="vm.register(user)"
         error="vm.error">
-        <!--Option to add extra fields using transclude.-->
-         <input type="text" placeholder="Name" ng-model="$parent.vm.user.name" required="required" class="form-control" />
+
+
+    <input type="text" transclude-to="head" placeholder="Name" ng-model="vm.user.name" required="required" class="form-control" />
 
 </gz-auth-form>
+<!--Option to add extra fields using transclude.-->
