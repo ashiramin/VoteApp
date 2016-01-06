@@ -1,10 +1,24 @@
 <div>
-    <h3 class="text-center">Enter an existing session id or create a new one</h3>
-    <form ng-submit="vm.checkSessionId(vm.sessionId)"  class="form-signin" role="form">
 
+    <form ng-submit="vm.checkSessionId(vm.sessionId)"  class="form-signin" role="form">
+        <div ng-show="vm.error" ng-bind="vm.error" class="alert alert-danger" role="alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span  class="text-danger"  class="sr-only">Error:</span>
+
+        </div>
         <div>
-            <input type="text" ng-model="vm.sessionId" class="form-control" />
+            <label>Enter meeting ID:</label>
+            <input type="text" ng-model="vm.sessionId" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label>Choose an option:</label>
+            <select class="form-control" id="repeatSelect" ng-model="vm.options.selectedOption" required>
+                <option ng-repeat="option in vm.options.availableOptions" value="{{option.id}}">{{option.name}}</option>
+            </select>
+
         </div>
         <input type="submit"   class="btn btn-lg btn-primary btn-block"/>
     </form>
 </div>
+{{vm.options.selectedOption}}
+

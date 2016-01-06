@@ -11,16 +11,36 @@
         var vm = this;
 
         vm.sessionId =$routeParams.sessionId !== undefined ? $routeParams.sessionId : "";
+        vm.options = {
+            selectedOption: null,
+            availableOptions: [
+                { id : "/admin/" , name: "Attendance List"},
+                { id : "/results/" , name: "Poll Results"}
+            ]
+        };
+
+        vm.data = {
+
+            availableOptions: [
+                {id: '1', name: 'Option A'},
+                {id: '2', name: 'Option B'},
+                {id: '3', name: 'Option C'}
+            ],
+            selectedOption: {id: '3', name: 'Option C'} //This sets the default value of the select in the ui
+        };
+
 
         vm.checkSessionId = function (sessionId) {
             var sessionExists =  adminService.SessionExists(sessionId);
             sessionExists.$loaded().then(function() {
                 if (sessionExists.length > 0) {
-                    $location.path('/admin/' + sessionId);
+                    $location.path(vm.options.selectedOption + sessionId);
                 }
+                vm.error = "No such ID exists";
 
             });
         };
+        vm.selectedOption = "";
 
 
         if (vm.sessionId != "") {
