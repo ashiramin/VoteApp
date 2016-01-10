@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   angular
@@ -11,8 +11,20 @@
     $routeProvider.when('/', {
       templateUrl: 'app/landing/landing.html',
       controller: 'LandingController',
-      controllerAs: 'vm'
+      controllerAs: 'vm',
+      resolve: {user: resolveUser}
     });
+  }
+
+  resolveUser.$inject = ['authService'];
+
+  function resolveUser(authService) {
+    if (authService.firebaseAuthObject.$getAuth() != null) {
+      var uid = authService.firebaseAuthObject.$getAuth().uid;
+      return authService.isUserAdmin(uid);
+    }
+    return false;
+
   }
 
 })();

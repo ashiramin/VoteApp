@@ -1,17 +1,20 @@
-(function() {
-    'use strict';
+(function () {
+  'use strict';
 
-    angular
-        .module('app.landing')
-        .controller('LandingController', LandingController);
+  angular
+    .module('app.landing')
+    .controller('LandingController', LandingController);
 
-    LandingController.$inject = ['$rootScope','authService'];
+  LandingController.$inject = ['$rootScope', 'authService' , 'user'];
 
-    function LandingController($rootScope,authService) {
-        var vm = this;
+  function LandingController($rootScope, authService,user) {
+    var vm = this;
+    console.log(user);
+    vm.isAdmin = user;
+    vm.isLoggedIn = authService.isLoggedIn;
 
-        vm.isLoggedIn = authService.isLoggedIn;
 
-    }
+
+  }
 
 })();
