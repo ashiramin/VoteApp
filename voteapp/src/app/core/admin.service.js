@@ -5,9 +5,9 @@
     .module('app.core')
     .factory('adminService', adminService);
 
-  adminService.$inject = ['$firebaseArray', 'firebaseDataService', 'voteService'];
+  adminService.$inject = ['$firebaseArray', 'firebaseDataService', 'voteService','$firebaseObject'];
 
-  function adminService($firebaseArray, firebaseDataService, voteService) {
+  function adminService($firebaseArray, firebaseDataService, voteService,$firebaseObject) {
 
     var service = {
       CreateSession: CreateSession,
@@ -15,7 +15,8 @@
       GetTotalCount: GetTotalCounts,
       CreatePoll: CreatePoll,
       getAllUsers: getAllUsers,
-      getSessionUsers: getSessionUsers
+      getSessionUsers: getSessionUsers,
+      toggleLock: toggleLock
 
     };
 
@@ -58,7 +59,8 @@
           question: question,
           choices: choices,
           maxOptions: maxOptions,
-          timestamp: Firebase.ServerValue.TIMESTAMP
+          timestamp: Firebase.ServerValue.TIMESTAMP,
+          locked: false
         }
       };
 
@@ -66,6 +68,19 @@
 
       $firebaseArray(firebaseDataService.voteSessions.child(sessionId)).$add(obj);
 
+    }
+
+    function toggleLock(sessionId,pollId) {
+      var ref = $firebaseObject(firebaseDataService.voteSessions.child(sessionId).child(pollId).child("info"));
+      ref.$loaded().then(function(data) {
+        console.log(data);
+        if (data.locked == false) {
+          firebaseDataService.voteSessions.child(sessionId).child(pollId).child("info").update({'locked' : true});
+        }
+        else if (data.locked == true) {
+          firebaseDataService.voteSessions.child(sessionId).child(pollId).child("info").update({'locked' : false});
+        }
+      });
     }
 
 

@@ -20,6 +20,7 @@
         vm.items["abc"] = {'adam':10, 'amalie':12};
         vm.items.a = 4;
         console.log(vm.items);
+        vm.selectedVote = {};
         vm.polls.$loaded().then(function() {
 
             console.log(vm.polls);
@@ -29,6 +30,9 @@
                     vm.chartStuff[vm.polls[i].$id]["label"] = [];
                     vm.chartStuff[vm.polls[i].$id]["chartData"] = [];
                     vm.chartStuff[vm.polls[i].$id]["votes"] = [];
+                    vm.chartStuff[vm.polls[i].$id]["totalVotes"] = 0;
+                    vm.chartStuff[vm.polls[i].$id]["class"] = vm.polls[i]["info"].locked == true;
+
 
                     for (var iter = 0; iter < vm.polls[i].info.choices.length; iter++) {
                         vm.chartStuff[vm.polls[i].$id]["votes"].push(0);
@@ -57,7 +61,12 @@
                         }
 
                     }
+                  vm.chartStuff[vm.polls[i].$id]["totalVotes"] = vm.chartStuff[vm.polls[i].$id]["chartData"][0].reduce(function(previousValue, currentValue, currentIndex, array) {
+                    return previousValue + currentValue;
+                  });
                 }
+
+
             }
             console.log(vm.chartStuff);
         });
@@ -98,6 +107,10 @@
                     }
                 }
 
+              vm.chartStuff[event.key]["totalVotes"] = vm.chartStuff[event.key]["chartData"][0].reduce(function(previousValue, currentValue, currentIndex, array) {
+                return previousValue + currentValue;
+              });
+
                }
 
 
@@ -105,7 +118,10 @@
         });
 
 
-
+        vm.toggleLock = function (sessionId,pollId) {
+          vm.chartStuff[pollId]["class"] = vm.chartStuff[pollId]["class"] == true ? false : true;
+            adminService.toggleLock("abc",pollId);
+        };
         $rootScope.$on('logout', function() {
             //   vm.parties.$destroy();
         });

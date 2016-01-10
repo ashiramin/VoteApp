@@ -1,9 +1,14 @@
 
-<div class="panel panel-default" ng-repeat="poll in vm.chartStuff">
+<div class="panel panel-default" ng-repeat="(key,poll) in vm.chartStuff">
+
     <div class="panel-heading">
+        <button type="submit" style="float: right;" ng-click="vm.toggleLock(vm.sessionId,key)" class="btn btn-success" ng-class="poll.class ? 'btn-danger' : 'btn-success'">
+            <i class="fa fa-lock fa-2x" style="float: right;" ng-class="poll.class ? 'fa-lock' : 'fa-unlock'"></i>
+        </button>
         <strong class="h3">{{poll.question}}</strong>
         <br/>
-        <span class="text-uppercase">Total Votes {{vm.votes.length}}</span>
+        <span class="text-uppercase">Total Votes {{poll.totalVotes}}</span>
+
     </div>
     <div class="panel-body">
         <div class="chart-container">
