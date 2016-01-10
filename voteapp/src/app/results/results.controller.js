@@ -11,7 +11,7 @@
         var vm = this;
 
         vm.votes =  adminService.GetTotalCount($routeParams.sessionId);
-
+        vm.sessionId = $routeParams.sessionId;
         vm.labels = ['A', 'B', 'C', 'D'];
         vm.polls = voteService.getPolls($routeParams.sessionId);
         vm.chartStuff = {};
@@ -120,7 +120,8 @@
 
         vm.toggleLock = function (sessionId,pollId) {
           vm.chartStuff[pollId]["class"] = vm.chartStuff[pollId]["class"] == true ? false : true;
-            adminService.toggleLock("abc",pollId);
+          console.log(sessionId);
+            adminService.toggleLock(sessionId,pollId);
         };
         $rootScope.$on('logout', function() {
             //   vm.parties.$destroy();

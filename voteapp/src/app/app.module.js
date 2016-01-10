@@ -25,7 +25,8 @@
       'app.vote',
       'app.admin',
       'app.results',
-      'app.poll'
+      'app.poll',
+      'app.settings'
 
 
     ])
@@ -61,13 +62,10 @@
     });
 
     $rootScope.$on("$routeChangeStart", function (event, next, current) {
-      console.log($location.url());
-      console.log(authService.firebaseAuthObject.$waitForAuth());
       if (authService.firebaseAuthObject.$waitForAuth() && ($location.url() !='/' || $location.url() !='/login' || $location.url() !='/register')) {
         authService.firebaseAuthObject.$waitForAuth().then(function (data) {
           if (data != null) {
             authService.isUrlAllowed(data.uid,$location.url()).then(function (userData) {
-              console.log(userData);
               if (userData == -1) {
                 $location.path("/")
               }

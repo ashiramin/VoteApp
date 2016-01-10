@@ -11,8 +11,8 @@
     var firebaseAuthObject = $firebaseAuth(firebaseDataService.root);
 
     var currentUser;
-    var adminRoles = ["poll", "results", "admin", "login", "register"];
-    var userRoles = ["attendance", "vote", "login", "register"];
+    var adminRoles = ["poll", "results", "admin", "login", "register", "settings"];
+    var userRoles = ["attendance", "vote", "login", "register", "settings"];
 
     firebaseAuthObject.$onAuth(function (auth) {
       currentUser = auth;
@@ -23,6 +23,7 @@
       register: register,
       login: login,
       logout: logout,
+      changePassword: changePassword,
       isLoggedIn: isLoggedIn,
       sendWelcomeEmail: sendWelcomeEmail,
       storeUserData: storeUserData,
@@ -46,6 +47,21 @@
     function logout() {
       $rootScope.$broadcast('logout');
       firebaseAuthObject.$unauth();
+    }
+
+    function changePassword(email,oldPassword,newPassword){
+      var defered = $q.defer();
+      firebaseAuthObject.$changePassword({
+        email: email,
+        oldPassword: oldPassword,
+        newPassword: newPassword
+      }).then(function() {
+        defered.resolve();
+      },function(error) {
+        defered.reject(error);
+      });
+
+      return defered.promise;
     }
 
     function isLoggedIn() {
@@ -89,13 +105,11 @@
       ref.once('value', function (dataSnapshot) {
         defered.resolve(dataSnapshot.val().roleValue == 99);
       });
-      console.log(defered.promise);
+
       return defered.promise;
     }
 
     function searchInArray(str, strArray) {
-      console.log(str);
-      console.log(adminRoles);
       for (var i = 0; i < strArray.length; i++) {
         if (str.indexOf(strArray[i]) > -1) {
           return 1;
@@ -103,8 +117,6 @@
       }
       return -1;
     }
-
-
   }
 
 })();

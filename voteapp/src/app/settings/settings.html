@@ -1,0 +1,19 @@
+<div>
+
+    <form ng-submit="vm.changePassword()"  class="form-signin" role="form">
+        <div ng-show="vm.message" ng-bind="vm.message" class="alert"
+             ng-class="vm.success == true ? 'alert-success' : 'alert-danger'" role="alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span  class="text-danger"  class="sr-only">Error:</span>
+
+        </div>
+        <div>
+            <input type="password" placeholder="old Password" ng-model="vm.oldPassword" class="form-control"  required />
+        </div>
+        <div>
+            <input type="password" placeholder="new Password" ng-model="vm.newPassword" class="form-control" required />
+        </div>
+        <input type="submit"   class="btn btn-lg btn-primary btn-block"/>
+    </form>
+</div>
+

@@ -12,13 +12,6 @@
 
     vm.register = register;
     vm.login = login;
-    vm.abc = "ssssssssss";
-
-    /*vm.user = {
-      name: 'aaa',
-      email: '',
-      password: 'sdsd'
-    };*/
 
     function register(user) {
 
