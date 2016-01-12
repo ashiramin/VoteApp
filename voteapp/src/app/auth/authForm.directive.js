@@ -19,11 +19,12 @@
       },
       transclude: true,
       link: function(scope, elem, attr, ctrl, transclude) {
-        console.log(ctrl);
+        console.log(scope);
         transclude(scope,function(clone, transScope) {
 
           transScope.name = ctrl.user.name;
 
+          console.log(transScope);
           angular.forEach(clone, function(cloneEl) {
             if (cloneEl.nodeType === 3)  {
 
@@ -43,8 +44,8 @@
   }
 
   function AuthFormController() {
-    var vm = this;
 
+    var vm = this;
     vm.user = {
       name: '',
       email: '',

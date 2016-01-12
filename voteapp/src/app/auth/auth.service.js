@@ -11,8 +11,8 @@
     var firebaseAuthObject = $firebaseAuth(firebaseDataService.root);
 
     var currentUser;
-    var adminRoles = ["poll", "results", "admin", "login", "register", "settings"];
-    var userRoles = ["attendance", "vote", "login", "register", "settings"];
+    var adminRoles = ["poll", "results", "admin", "login", "register", "settings", "resetpassword"];
+    var userRoles = ["attendance", "vote", "login", "register", "settings", "resetpassword"];
 
     firebaseAuthObject.$onAuth(function (auth) {
       currentUser = auth;
@@ -24,6 +24,7 @@
       login: login,
       logout: logout,
       changePassword: changePassword,
+      resetPassword: resetPassword,
       isLoggedIn: isLoggedIn,
       sendWelcomeEmail: sendWelcomeEmail,
       storeUserData: storeUserData,
@@ -56,6 +57,7 @@
         oldPassword: oldPassword,
         newPassword: newPassword
       }).then(function() {
+        console.log("Password changed successfully!");
         defered.resolve();
       },function(error) {
         defered.reject(error);
@@ -66,6 +68,21 @@
 
     function isLoggedIn() {
       return currentUser;
+    }
+
+    function resetPassword(email) {
+      var defered = $q.defer();
+      firebaseAuthObject.$resetPassword({
+        email: email
+      }).then(function() {
+        console.log("Password reset email sent successfully!");
+        defered.resolve("Password reset email sent successfully!");
+      }).catch(function(error) {
+        console.error("Error: ", error);
+        defered.reject(error);
+      });
+
+      return defered.promise;
     }
 
     function sendWelcomeEmail(emailAddress) {

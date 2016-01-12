@@ -12,6 +12,7 @@
 
     vm.register = register;
     vm.login = login;
+    vm.resetPassword = resetPassword;
 
     function register(user) {
 
@@ -26,6 +27,17 @@
 
           vm.error = error;
         });
+    }
+
+
+    function resetPassword(email) {
+      authService.resetPassword(email)
+        .then(function (response) {
+          vm.error = response;
+        })
+        .catch(function (error) {
+          vm.error= error;
+        })
     }
 
     function login(user) {
