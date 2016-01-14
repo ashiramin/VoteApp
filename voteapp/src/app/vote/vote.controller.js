@@ -25,7 +25,7 @@
                 "</div>" +
                 "<div class='modal-footer'>" +
                 "<button class='btn btn-primary' type='button' ng-click='vm.ok()'>OK</button>" +
-                "<button class='btn btn-warning' type='button' ng-click='vmcancel()'>Cancel</button>" +
+                "<button class='btn btn-warning' type='button' ng-click='vm.cancel()'>Cancel</button>" +
                 "</div>"
 
             };
@@ -119,6 +119,7 @@
         vm.cancel = function () {
            // console.log(attendanceService);
            // attendanceService.lockUser(uids,$routeParams.sessionId);
+          //$uibModalInstance.close();
             $uibModalInstance.dismiss('cancel');
         };
     });

@@ -5,18 +5,21 @@
 
     <div class="row">
       <div class="col-md-4">
-        <a class="btn btn-lg btn-primary" href="#/admin" role="button" ng-show="vm.isAdmin">Admin Portal</a>
+        <!--<a class="btn btn-lg btn-primary" href="#/admin" role="button" ng-show="vm.isAdmin">Admin Portal</a>-->
+        <a class="btn btn-lg btn-primary" href="#/admin" role="button">Admin Portal</a>
 
         <p></p>
       </div>
       <div class="col-md-4">
         <a class="btn btn-lg btn-primary" href="#/login" role="button" ng-show="!vm.isLoggedIn()">Get started now!</a>
-        <a class="btn btn-lg btn-primary" href="#/attendance" role="button" ng-show="vm.isLoggedIn() && !vm.isAdmin">Get started now!</a>
+        <!--<a class="btn btn-lg btn-primary" href="#/attendance" role="button" ng-show="vm.isLoggedIn() && !vm.isAdmin">Get started now!</a>-->
+        <a class="btn btn-lg btn-primary" href="#/attendance" role="button" ng-show="vm.isLoggedIn()">Get started now!</a>
         <h2></h2>
         <p></p>
       </div>
       <div class="col-md-4">
-        <a class="btn btn-lg btn-primary" href="#/poll" role="button" ng-show="vm.isAdmin">Create new Poll</a>
+       <!-- <a class="btn btn-lg btn-primary" href="#/poll" role="button" ng-show="vm.isAdmin">Create new Poll</a>-->
+        <a class="btn btn-lg btn-primary" href="#/poll" role="button">Create new Poll</a>
 
       </div>
     </div>

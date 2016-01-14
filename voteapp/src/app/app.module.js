@@ -26,7 +26,8 @@
       'app.admin',
       'app.results',
       'app.poll',
-      'app.settings'
+      'app.settings',
+      'app.directives'
 
 
     ])
@@ -67,7 +68,7 @@
           if (data != null) {
             authService.isUrlAllowed(data.uid,$location.url()).then(function (userData) {
               if (userData == -1) {
-                $location.path("/")
+             //   $location.path("/")
               }
             })
           }

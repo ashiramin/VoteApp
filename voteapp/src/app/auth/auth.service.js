@@ -11,8 +11,8 @@
     var firebaseAuthObject = $firebaseAuth(firebaseDataService.root);
 
     var currentUser;
-    var adminRoles = ["poll", "results", "admin", "login", "register", "settings", "resetpassword"];
-    var userRoles = ["attendance", "vote", "login", "register", "settings", "resetpassword"];
+    var adminRoles = ["poll", "results", "admin", "login", "register", "settings", "resetpassword" ,"changepassword"];
+    var userRoles = ["attendance", "vote", "login", "register", "settings", "resetpassword", "changepassword"];
 
     firebaseAuthObject.$onAuth(function (auth) {
       currentUser = auth;
@@ -52,6 +52,7 @@
 
     function changePassword(email,oldPassword,newPassword){
       var defered = $q.defer();
+      console.log(email);
       firebaseAuthObject.$changePassword({
         email: email,
         oldPassword: oldPassword,
