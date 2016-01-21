@@ -31,15 +31,65 @@
             };
         });
 
-    VoteController.$inject = ['$rootScope', 'voteService' , 'user','$routeParams','$uibModal' ];
+    VoteController.$inject = ['$scope', 'voteService' , 'user','$routeParams','$uibModal' ];
 
-    function VoteController($rootScope, voteService,user,$routeParams,$uibModal) {
+    function VoteController($scope, voteService,user,$routeParams,$uibModal) {
 
-        var vm = this;
+      var vm = this;
         //console.log(vm);
         vm.selectedCombination = [];
-        console.log($uibModal);
+      vm.choices = {};
+      vm.selectedOption = {};
 
+      vm.submitChoices = function(id) {
+        console.log(vm.choices[id]);
+        var obj = {};
+
+        var final = [];
+        for (var key in vm.choices[id]) {
+          if (vm.choices[id].hasOwnProperty(key)) {
+            if(vm.choices[id][key] == true)
+            {
+              final.push(key);
+            }
+          }
+        }
+        obj[uids] = final;
+        console.log(obj);
+       vm.getVotes.child(id).child("votes").update(obj);
+      };
+
+      vm.disableCheckboxes = function(id) {
+
+      };
+
+      vm.goOffline = function () {
+        Firebase.goOffline();
+      };
+
+      vm.goOnline = function() {
+        Firebase.goOnline();
+      };
+
+      $scope.$watch('vm.choices', function (items) {
+
+        //console.log(items);
+        var selectedItems;
+        angular.forEach(items, function(item,key){
+          //console.log(item);
+          //console.log(key);
+          vm.selectedOption[key] = 0;
+          angular.forEach(item, function(property) {
+
+         //   console.log(property);
+            if (property) {
+              vm.selectedOption[key]++;
+            }
+          });
+
+
+        });
+      },true);
         vm.items = ['item1', 'item2', 'item3'];
         var uids = user.uid;
         vm.Modal = function (size) {
@@ -62,14 +112,23 @@
 
         vm.polls = voteService.getPolls($routeParams.sessionId);
 
-        vm.polls.$watch(function(event) {
+       /* vm.polls.$watch(function(event) {
             if (event.event == "child_added") {
             //    var pollId = vm.polls.$getRecord(event.key)
                 vm.selectedCombination[event.key] = [];
             }
-        });
+        });*/
 
-        vm.buttonClass = "btn-default";
+      vm.polls.$loaded().then(function() {
+        for (var i = 0; i < vm.polls.length;i++) {
+          vm.selectedCombination[vm.polls[i].$id] = [];
+          vm.choices[vm.polls[i].$id] = {};
+          vm.selectedOption[vm.polls[i].$id] = 0;
+        }
+      });
+
+
+      vm.buttonClass = "btn-default";
 
         vm.userVote = "";
 
@@ -79,9 +138,10 @@
                 vm.selectedCombination[id].push(n);
             }
 
-            console.log(vm.selectedCombination);
-            console.log(vm.polls.length);
+            //console.log(vm.selectedCombination);
+            //console.log(vm.polls.length);
             obj[uids] = vm.selectedCombination[id];
+          console.log(obj);
 
             if (vm.selectedCombination[id].length > maxOptions) {
                 vm.selectedCombination[id].shift();
@@ -100,10 +160,6 @@
 
 
         };
-
-        $rootScope.$on('logout', function() {
-            //   vm.parties.$destroy();
-        });
 
     }
 

@@ -4,20 +4,29 @@
     <button class="btn btn-lg btn-default" ng-click="vm.Modal()">I have to leave early</button>
 </div>
 
+<button ng-click="vm.goOffline()">Offline</button>
+<button ng-click="vm.goOnline()">Online</button>
+
 <div ng-repeat="poll in vm.polls | filter:{info: {locked: false}}">
     <hr>
     <h3 class="text-center">{{$index+1}}. {{poll.info.question}}</h3>
+    <div class="text-center">
+        <label class="text-center">Max options: {{poll.info.maxOptions}}</label>
+    </div>
 
     <div class="text-center" ng-repeat="n in poll.info.choices">
 
+        <div class="checkbox" ng-class="{'disabled':vm.selectedOption[poll.$id] == poll.info.maxOptions && !vm.choices[poll.$id][n]}">
+            <h4><label><input type="checkbox" ng-disabled="vm.selectedOption[poll.$id] == poll.info.maxOptions && !vm.choices[poll.$id][n]"  ng-false-value="" ng-model="vm.choices[poll.$id][n]">{{n}}</label></h4>
+        </div>
 
-        <button class="btn btn-lg {{vm.buttonClass}}" name="pageSet"
-                ng-click="vm.addvote($parent.$index,n,poll.$id,poll.info.maxOptions)"
-                ng-class="{'btn-primary':vm.buttonSelected(n,poll.$id) > -1}">{{n}}
-        </button>
-        <br/>
-        <br/>
+
     </div>
+    <div class="text-center">
+        <button class="btn btn-lg btn-success" ng-click="vm.submitChoices(poll.$id)">Submit</button>
+    </div>
+
+
 
 </div>
 

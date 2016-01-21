@@ -30,8 +30,7 @@
             vm.attendanceInfo = attendanceService.getAttendanceInfoForUser(user.uid,vm.sessionId);
 
 
-            vm.abc.$loaded().then(function()
-            {
+            vm.abc.$loaded().then(function() {
                 vm.attendance = attendanceService.getAttendanceByDay(user.uid,vm.sessionId);
 
                 if (vm.abc.length > 0)

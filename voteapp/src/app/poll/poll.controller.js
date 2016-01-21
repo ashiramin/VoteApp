@@ -27,7 +27,7 @@
         };
 
         vm.createPoll = function () {
-            console.log($routeParams);
+            //console.log($routeParams);
           adminService.CreatePoll(vm.sessionId,vm.choices,vm.maxOptions,vm.question);
             vm.choices = [];
             vm.maxOptions = 1;
@@ -55,11 +55,10 @@
         // TODO: Fix delete function
         vm.deletechoice = function(choice)
         {
-
+            console.log(choice);
             var i = vm.choices.indexOf(choice);
             if(i != -1) {
-                console.log('sdsd');
-               vm.choices =  vm.choices.splice(i, 1);
+              vm.choices.splice(i, 1);
             }
         };
 
