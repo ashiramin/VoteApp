@@ -55,7 +55,7 @@
           }
         }
         obj[uids] = final;
-        
+
         //Firebase.goOnline();
        vm.getVotes.child(id).child("votes").update(obj, function () {
         // Firebase.goOffline();
