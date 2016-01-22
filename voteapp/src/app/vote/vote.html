@@ -3,9 +3,13 @@
 <div class="text-center">
     <button class="btn btn-lg btn-default" ng-click="vm.Modal()">I have to leave early</button>
 </div>
-
-<button ng-click="vm.goOffline()">Offline</button>
-<button ng-click="vm.goOnline()">Online</button>
+<style>
+    label input:disabled + span {
+        color: #ccc;
+    }
+</style>
+<!--<button ng-click="vm.goOffline()">Offline</button>
+<button ng-click="vm.goOnline()">Online</button>-->
 
 <div ng-repeat="poll in vm.polls | filter:{info: {locked: false}}">
     <hr>
@@ -16,8 +20,16 @@
 
     <div class="text-center" ng-repeat="n in poll.info.choices">
 
-        <div class="checkbox" ng-class="{'disabled':vm.selectedOption[poll.$id] == poll.info.maxOptions && !vm.choices[poll.$id][n]}">
-            <h4><label><input type="checkbox" ng-disabled="vm.selectedOption[poll.$id] == poll.info.maxOptions && !vm.choices[poll.$id][n]"  ng-false-value="" ng-model="vm.choices[poll.$id][n]">{{n}}</label></h4>
+        <div class="checkbox"
+             ng-class="{'disabled':vm.selectedOption[poll.$id] == poll.info.maxOptions && !vm.choices[poll.$id][n]}">
+            <h4>
+                <label>
+                <input type="checkbox"
+                       ng-disabled="vm.selectedOption[poll.$id] == poll.info.maxOptions && !vm.choices[poll.$id][n]"
+                       ng-false-value="" ng-model="vm.choices[poll.$id][n]">
+                    <span>{{n}}</span>
+                </label>
+            </h4>
         </div>
 
 

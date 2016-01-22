@@ -19,7 +19,6 @@
         vm.items = {};
         vm.items["abc"] = {'adam':10, 'amalie':12};
         vm.items.a = 4;
-        console.log(vm.items);
         vm.selectedVote = {};
         vm.polls.$loaded().then(function() {
 
@@ -119,9 +118,10 @@
 
 
         vm.toggleLock = function (sessionId,pollId) {
-          vm.chartStuff[pollId]["class"] = vm.chartStuff[pollId]["class"] == true ? false : true;
-          console.log(sessionId);
-            adminService.toggleLock(sessionId,pollId);
+
+            adminService.toggleLock(sessionId,pollId).then(function () {
+              vm.chartStuff[pollId]["class"] = vm.chartStuff[pollId]["class"] == true ? false : true;
+            });
         };
         $rootScope.$on('logout', function() {
             //   vm.parties.$destroy();

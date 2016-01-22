@@ -31,9 +31,9 @@
             };
         });
 
-    VoteController.$inject = ['$scope', 'voteService' , 'user','$routeParams','$uibModal' ];
+    VoteController.$inject = ['$scope', 'voteService' , 'user','$routeParams','$uibModal' , '$interval' ];
 
-    function VoteController($scope, voteService,user,$routeParams,$uibModal) {
+    function VoteController($scope, voteService,user,$routeParams,$uibModal,$interval) {
 
       var vm = this;
         //console.log(vm);
@@ -55,12 +55,13 @@
           }
         }
         obj[uids] = final;
-        console.log(obj);
-       vm.getVotes.child(id).child("votes").update(obj);
-      };
+        
+        //Firebase.goOnline();
+       vm.getVotes.child(id).child("votes").update(obj, function () {
+        // Firebase.goOffline();
 
-      vm.disableCheckboxes = function(id) {
-
+       });
+        //Firebase.goOffline();
       };
 
       vm.goOffline = function () {
@@ -71,17 +72,16 @@
         Firebase.goOnline();
       };
 
+      var update = $interval(function () {
+       // Firebase.goOnline();
+        //Firebase.goOffline();
+      },10000);
+
       $scope.$watch('vm.choices', function (items) {
 
-        //console.log(items);
-        var selectedItems;
         angular.forEach(items, function(item,key){
-          //console.log(item);
-          //console.log(key);
           vm.selectedOption[key] = 0;
           angular.forEach(item, function(property) {
-
-         //   console.log(property);
             if (property) {
               vm.selectedOption[key]++;
             }
@@ -90,7 +90,7 @@
 
         });
       },true);
-        vm.items = ['item1', 'item2', 'item3'];
+
         var uids = user.uid;
         vm.Modal = function (size) {
             $uibModal.open({
@@ -106,20 +106,22 @@
             });
         };
 
-            vm.getVotes = voteService.getVotes($routeParams.sessionId);
+      vm.getVotes = voteService.getVotes($routeParams.sessionId);
 
 
 
-        vm.polls = voteService.getPolls($routeParams.sessionId);
+      vm.polls = voteService.getPolls($routeParams.sessionId);
 
-       /* vm.polls.$watch(function(event) {
+      /*    vm.polls.$watch(function(event) {
+          console.log(event.event);
             if (event.event == "child_added") {
             //    var pollId = vm.polls.$getRecord(event.key)
-                vm.selectedCombination[event.key] = [];
+            //    vm.selectedCombination[event.key] = [];
             }
         });*/
 
       vm.polls.$loaded().then(function() {
+       // Firebase.goOffline();
         for (var i = 0; i < vm.polls.length;i++) {
           vm.selectedCombination[vm.polls[i].$id] = [];
           vm.choices[vm.polls[i].$id] = {};
@@ -161,6 +163,11 @@
 
         };
 
+      $scope.$on('$destroy',function() {
+        Firebase.goOnline();
+        $interval.cancel(update);
+      })
+
     }
 
     angular.module('app.vote').controller('ModalInstanceCtrl', function ($rootScope,$uibModalInstance,attendanceService,user,$routeParams) {
@@ -173,9 +180,7 @@
             $uibModalInstance.close();
         };
         vm.cancel = function () {
-           // console.log(attendanceService);
-           // attendanceService.lockUser(uids,$routeParams.sessionId);
-          //$uibModalInstance.close();
+
             $uibModalInstance.dismiss('cancel');
         };
     });
