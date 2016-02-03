@@ -31,9 +31,9 @@
             };
         });
 
-    VoteController.$inject = ['$scope', 'voteService' , 'user','$routeParams','$uibModal' , '$interval' ];
+    VoteController.$inject = ['$scope', 'voteService' , 'user','$routeParams','$uibModal' , '$interval' , '$location' ];
 
-    function VoteController($scope, voteService,user,$routeParams,$uibModal,$interval) {
+    function VoteController($scope, voteService,user,$routeParams,$uibModal,$interval, $location) {
 
       var vm = this;
         //console.log(vm);
@@ -42,7 +42,7 @@
       vm.selectedOption = {};
 
       vm.submitChoices = function(id) {
-        console.log(vm.choices[id]);
+        //console.log(vm.choices[id]);
         var obj = {};
 
         var final = [];
@@ -57,11 +57,25 @@
         obj[uids] = final;
 
         //Firebase.goOnline();
-       vm.getVotes.child(id).child("votes").update(obj, function () {
+       /*vm.getVotes.child(id).child("votes").update(obj, function (error) {
+        console.log(obj);
         // Firebase.goOffline();
+         if (error) {
 
-       });
+         } else {
+           $location.path('/attendance');
+         }
+
+         console.log("In here");
+       });*/
+
+        voteService.saveVotes($routeParams.sessionId,obj,id)
+          .then(function() {
+            $location.path('/vote/' + $routeParams.sessionId + '/confirmation' );
+            console.log("In here");
+        });
         //Firebase.goOffline();
+        //$location.path('/attendance');
       };
 
       vm.goOffline = function () {
@@ -72,11 +86,29 @@
         Firebase.goOnline();
       };
 
-      var update = $interval(function () {
-       // Firebase.goOnline();
-        //Firebase.goOffline();
-      },10000);
 
+
+      function Refresh() {
+        /*$interval(function () {
+          Firebase.goOnline();
+          console.log("SDAsd");
+          //
+          var connectedRef = new Firebase('https://torrid-inferno-8089.firebaseio.com/users/');
+          connectedRef.on('value', function(snap) {
+            if (snap.val() === true) {
+              console.log("SDAsd");
+              Firebase.goOffline();
+              console.log("SDAsd");
+              Refresh();
+              }
+            });
+
+        },10000,0);
+        */
+      }
+
+
+      //Refresh();
       $scope.$watch('vm.choices', function (items) {
 
         angular.forEach(items, function(item,key){
@@ -121,7 +153,7 @@
         });*/
 
       vm.polls.$loaded().then(function() {
-       // Firebase.goOffline();
+       //Firebase.goOffline();
         for (var i = 0; i < vm.polls.length;i++) {
           vm.selectedCombination[vm.polls[i].$id] = [];
           vm.choices[vm.polls[i].$id] = {};
@@ -164,8 +196,8 @@
         };
 
       $scope.$on('$destroy',function() {
-        Firebase.goOnline();
-        $interval.cancel(update);
+       // Firebase.goOnline();
+       // $interval.cancel(Refresh);
       })
 
     }

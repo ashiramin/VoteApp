@@ -5,9 +5,9 @@
         .module('app.core')
         .factory('voteService', voteService);
 
-    voteService.$inject = ['$firebaseArray', 'firebaseDataService', '$firebaseObject'];
+    voteService.$inject = ['$firebaseArray', 'firebaseDataService', '$firebaseObject', '$q'];
 
-    function voteService($firebaseArray, firebaseDataService, $firebaseObject) {
+    function voteService($firebaseArray, firebaseDataService, $firebaseObject,$q) {
 
 
         var votes = ['A','B','C','D'];
@@ -15,7 +15,8 @@
 
             getVotes: getVotes,
             vote: votes,
-            getPolls: getPolls
+            getPolls: getPolls,
+          saveVotes: saveVote
 
         };
 
@@ -32,6 +33,21 @@
 
             return $firebaseArray(firebaseDataService.voteSessions.child(sessionId));
         }
+
+
+      function saveVote(sessionId,obj,id) {
+        var onComplete = function(error) {
+          if (error) {
+            defered.reject();
+          } else {
+            defered.resolve();
+          }
+        };
+        var defered = $q.defer();
+        firebaseDataService.voteSessions.child(sessionId).child(id).child("votes").update(obj,onComplete)
+
+        return defered.promise;
+      }
 
 
 

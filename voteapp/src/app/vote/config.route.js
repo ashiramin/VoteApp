@@ -18,6 +18,11 @@
 
       }
     });
+
+    $routeProvider.when('/vote/:sessionId/confirmation', {
+      templateUrl: 'app/vote/confirmation.html',
+
+    });
   }
 
   resolveUser.$inject = ['authService'];

@@ -21,6 +21,18 @@
         ga('create', 'UA-72788806-1', 'auto');
         ga('send', 'pageview');
 
+        ga(function(tracker) {
+            // Logs the trackers name.
+            // (Note: default trackers are given the name "t0")
+
+            tracker.get('name');
+
+            // Logs the client ID for the current user.
+            tracker.get('clientId');
+
+            // Logs the URL of the referring site (if available).
+            tracker.get('referrer');
+        });
     </script>
 </head>
 <body>
